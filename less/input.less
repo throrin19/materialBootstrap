@@ -1,0 +1,27 @@
+input.text-field {
+  font-family: "robotoregular";
+  font-size: 14px;
+  background-color: transparent;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 1px solid @grey300;
+  color: @grey500;
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &::-ms-input-placeholder {
+    font-family: "robotothin";
+    font-size: 14px;
+    color: @grey200;
+  }
+
+  &:focus {
+    outline: none;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid @blue500;
+    // @todo animation
+  }
+}
