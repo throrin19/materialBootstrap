@@ -1,18 +1,19 @@
 input.text-field {
   font-family: "robotoregular";
-  font-size: 14px;
+  font-size: 16px;
   background-color: transparent;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
   border-bottom: 1px solid @grey300;
-  color: @grey500;
+  color: @grey600;
+  padding: 14px 0 8px 0;
+  margin-bottom: 8px;
 
   &::-webkit-input-placeholder,
   &::-moz-placeholder,
-  &::-ms-input-placeholder {
+  &:-ms-input-placeholder {
     font-family: "robotothin";
-    font-size: 14px;
     color: @grey200;
   }
 
@@ -21,7 +22,16 @@ input.text-field {
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
-    border-bottom: 2px solid @blue500;
+    border-bottom: 2px solid @blue;
     // @todo animation
+  }
+
+  // @todo colors loop
+
+  &.error {
+      border-bottom: 2px solid @red;
+      &:focus {
+          border-color: @red;
+      }
   }
 }
