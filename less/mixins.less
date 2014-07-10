@@ -1,15 +1,17 @@
-// ............................................................
-// .for
-
-.for(@i, @n) {.-each(@i)}
-.for(@n)     when (isnumber(@n)) {.for(1, @n)}
-.for(@i, @n) when not (@i = @n)  {
-    .for((@i + (@n - @i) / abs(@n - @i)), @n);
+/**
+ * Create border-colors
+ */
+.colors(@index, @colors, @type) when (@index > 0) {
+    .colors(@index - 1, @colors, @type);
+    @color : e(extract(@colors, @index));
+    &.@{color} {
+        @{type} : @@color;
+    }
 }
-
-// ............................................................
-// .for-each
-
-.for(@array)   when (default()) {.for-impl_(length(@array))}
-.for-impl_(@i) when (@i > 1)    {.for-impl_((@i - 1))}
-.for-impl_(@i) when (@i > 0)    {.-each(extract(@array, @i))}
+.colors-focus(@index, @colors, @type) when (@index > 0) {
+    .colors-focus(@index - 1, @colors, @type);
+    @color : e(extract(@colors, @index));
+    &.@{color}:focus {
+        @{type} : @@color;
+    }
+}
