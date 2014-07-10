@@ -29,33 +29,33 @@ input.text-field {
   .colors-focus(length(@colors), @colors, border-color);
 
   &.error {
-      border-bottom: 2px solid @red;
-      &:focus {
-          border-color: @red;
-      }
+    border-bottom: 2px solid @red;
+    &:focus {
+      border-color: @red;
+    }
   }
 }
 
 div.floating-label {
-    position: relative;
+  position: relative;
 
-    > label {
-        font-family: "robotoregular";
-        position: absolute;
-        top: 18px;
-        left: 0;
-        width: 100%;
-        transition: 0.15s;
-        color: @grey500;
-        font-size: 16px;
-        font-weight: normal;
-        cursor: text;
-    }
+  > label {
+    font-family: "robotoregular";
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
+    transition: 0.15s;
+    color: @grey500;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: text;
+  }
 
-    > input.text-field:focus + label, input.text-field:valid + label {
-        top: 0;
-        font-size: 12px;
-        color: @blue;
-        cursor: inherit;
-    }
+  > input.text-field:focus + label, input.text-field:valid + label, label.show-float {
+    top: 0;
+    font-size: 12px;
+    color: @blue;
+    cursor: inherit;
+  }
 }
