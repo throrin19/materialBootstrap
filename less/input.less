@@ -22,10 +22,10 @@ input.text-field {
     border-left: 0px;
     border-right: 0px;
     border-bottom: 2px solid @blue;
+    margin-bottom: 7px;
     // @todo animation
   }
 
-  // @todo colors loop
   .colors-focus(length(@colors), @colors, border-color);
 
   &.error {
@@ -33,6 +33,10 @@ input.text-field {
     &:focus {
       border-color: @red;
     }
+  }
+
+  &.dark {
+    color : @grey200;
   }
 }
 
@@ -52,10 +56,19 @@ div.floating-label {
     cursor: text;
   }
 
-  > input.text-field:focus + label, input.text-field:valid + label, label.show-float {
+  > input.text-field:focus + label, > input.text-field:valid + label, > input.text-field + label.show-float {
     top: 0;
     font-size: 12px;
     color: @blue;
     cursor: inherit;
   }
+
+  .text-field-colors(@index, @colors, @type) when (@index > 0) {
+    .text-field-colors(@index - 1, @colors, @type);
+    @color : e(extract(@colors, @index));
+    input.text-field.@{color}:focus + label, input.text-field.@{color}:valid + label, input.text-field.@{color} + label.show-float {
+      color: @@color;
+    }
+  }
+  .text-field-colors(length(@colors), @colors, border-color);
 }
