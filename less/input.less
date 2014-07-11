@@ -69,7 +69,7 @@ div.floating-label {
   .text-field-colors(@index, @colors, @type) when (@index > 0) {
     .text-field-colors(@index - 1, @colors, @type);
     @color : e(extract(@colors, @index));
-    input.text-field.@{color}:focus + label {
+    > input.text-field.@{color}:focus + label {
       color: @@color;
     }
   }
