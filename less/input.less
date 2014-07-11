@@ -59,14 +59,17 @@ div.floating-label {
   > input.text-field:focus + label, > input.text-field:valid + label, > input.text-field + label.show-float {
     top: 0;
     font-size: 12px;
-    color: @blue;
     cursor: inherit;
+  }
+
+  > input.text-field:focus + label {
+    color: @blue;
   }
 
   .text-field-colors(@index, @colors, @type) when (@index > 0) {
     .text-field-colors(@index - 1, @colors, @type);
     @color : e(extract(@colors, @index));
-    input.text-field.@{color}:focus + label, input.text-field.@{color}:valid + label, input.text-field.@{color} + label.show-float {
+    input.text-field.@{color}:focus + label {
       color: @@color;
     }
   }
