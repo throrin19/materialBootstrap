@@ -6,8 +6,8 @@
   font-family: 'robotomedium';
   font-size: 14px;
   border: 1px solid @grey50;
-  .border-top-radius(1px);
-  .border-bottom-radius(1px);
+  .border-top-radius(2px);
+  .border-bottom-radius(2px);
   padding: 5px 20px;
   text-transform: uppercase;
   margin: 5px 8px;
@@ -40,16 +40,16 @@
   }
 
   &.dark{
-    background-color: @lblue700;
-    border-color: @lblue700;
+    background-color: @blue500;
+    border-color: @blue500;
     color: @grey100;
     &:hover{
-      background-color: @lblue800;
-      border-color: @lblue800;
+      background-color: @blue600;
+      border-color: @blue600;
     }
     &:active{
-      background-color: @lblue900;
-      border-color: @lblue900;
+      background-color: @blue700;
+      border-color: @blue700;
     }
     &:disabled{
       .z-depth-0;
@@ -67,16 +67,16 @@
       background-color: @@c;
       border-color: @@c;
       color: @grey100;
-      @c : "@{color}700";
+      @c : "@{color}500";
       &:hover{
         background-color: @@c;
         border-color: @@c;
-        @c : "@{color}800";
+        @c : "@{color}600";
       }
       &:active{
         background-color: @@c;
         border-color: @@c;
-        @c : "@{color}900";
+        @c : "@{color}700";
       }
       &:disabled{
         .z-depth-0;
