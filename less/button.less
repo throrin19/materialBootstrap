@@ -142,6 +142,13 @@
       background-color: @grey700;
       border-color: @grey700;
     }
+
+    &:disabled{
+      background-color: @grey500;
+      border-color: @grey500;
+      color: @grey2000;
+      .opacity(0.2);
+    }
   }
 
   .buttons-colors(@index, @colors, @type) when (@index > 0) {
