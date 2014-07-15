@@ -86,6 +86,11 @@
         color: @grey1000;
         .opacity(0.2);
       }
+      &.dark{
+        &:disabled{
+          color: @grey2000;
+        }
+      }
     }
   }
   .buttons-colors(length(@colors), @colors, border-color);
@@ -168,11 +173,27 @@
         @c : "@{color}100";
       }
       &:disabled{
-        .z-depth-0;
         background-color: @grey500;
         border-color: @grey500;
         color: @grey1000;
         .opacity(0.2);
+      }
+      &.dark{
+        &:hover{
+          background-color: @@c;
+          border-color: @@c;
+          @c : "@{color}100";
+        }
+        &:active{
+          background-color: @@c;
+          border-color: @@c;
+          @c : "@{color}200";
+        }
+        &:disabled{
+          color: @grey2000;
+          background-color: @grey500;
+          border-color: @grey500;
+        }
       }
     }
   }
