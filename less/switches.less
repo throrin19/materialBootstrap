@@ -26,6 +26,21 @@
         animation-duration: 0.1s;
       }
 
+      .checked{
+        .img-circle;
+        .animated;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        padding: 4px;
+        background-color: @green;
+        display: none;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        animation-duration: 0.1s;
+      }
+
       &:active .focus{
         display: block;
         background-color: @green;
@@ -34,8 +49,11 @@
     }
 
     &:checked + label{
-      background-color: @green;
       border-color: @green;
+
+      .checked{
+        display: block;
+      }
 
       &:active .focus{
         background-color: @grey600 !important;
@@ -53,8 +71,10 @@
         + label:active .focus {
           background-color: @@color;
         }
-        &:checked + label{
+        + label .checked {
           background-color: @@color;
+        }
+        &:checked + label{
           border-color: @@color;
         }
       }
@@ -97,7 +117,6 @@ label.material-radio{
           .zoomIn;
         }
         &:checked + label{
-          background-color: @@color;
           border-color: @@color;
           .zoomIn;
         }
