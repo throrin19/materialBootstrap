@@ -6,7 +6,6 @@
       position: relative;
       padding: 6px;
       cursor: pointer;
-      font-size: 1em;
       display: inline-block;
       margin: 0 10px 0 2px;
       border: 2px solid @grey700;
@@ -124,4 +123,138 @@ label.material-radio{
     }
   }
   .radio-colors(length(@colors), @colors);
+};
+
+.material-checkbox{
+  input[type=checkbox]{
+    display: none;
+    + label {
+      .rounded-corners(2px);
+      position: relative;
+      padding: 6px;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 10px 0 2px;
+      border: 2px solid @grey700;
+
+      .focus{
+        .rounded-corners(50%);
+        .animated;
+        position: absolute;
+        left: -14px;
+        top: -14px;
+        padding: 20px;
+        opacity: 0.4 !important;
+        display: none;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        animation-duration: 0.1s;
+      }
+
+      .checked{
+        .animated;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: @green;
+        display: none;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        animation-duration: 0.1s;
+        color: @grey2000;
+        font-size: 13px;
+        line-height: 13px;
+        height: 12px;
+        width: 12px;
+        &:before{
+          font-family: "materialicons";
+          content: "\e70a";
+        }
+      }
+
+      &:active .focus{
+        display: block;
+        background-color: @green;
+        .zoomIn;
+      }
+    }
+    &:checked + label{
+      border-color: @green;
+
+      .checked{
+        display: block;
+        .rotateIn;
+      }
+
+      &:active .focus{
+        background-color: @grey600 !important;
+        .zoomIn;
+      }
+    }
+  }
+
+  .checkbox-colors(@index, @colors) when (@index > 0) {
+    .checkbox-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+
+    &.@{color} {
+      input[type=checkbox]{
+        + label:active .focus {
+          background-color: @@color;
+        }
+        + label .checked {
+          background-color: @@color;
+        }
+        &:checked + label{
+          border-color: @@color;
+        }
+      }
+    }
+  }
+  .checkbox-colors(length(@colors), @colors);
+}
+
+label.material-checkbox{
+  font-family: "robotoregular";
+  font-size: 12px;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  input[type=checkbox] + label{
+    margin-bottom: -3px;
+  }
+
+  &:active input[type=checkbox]{
+    + label .focus{
+      display: block;
+      background-color: @green;
+      .zoomIn;
+    }
+
+    &:checked + label .focus{
+      background-color: @grey600 !important;
+      .zoomIn;
+    }
+  }
+
+  .checkbox-colors(@index, @colors) when (@index > 0) {
+    .checkbox-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+
+    &:active.@{color} {
+      input[type=checkbox]{
+        + label .focus {
+          background-color: @@color;
+          .zoomIn;
+        }
+        &:checked + label{
+          border-color: @@color;
+          .zoomIn;
+        }
+      }
+    }
+  }
+  .checkbox-colors(length(@colors), @colors);
 };
