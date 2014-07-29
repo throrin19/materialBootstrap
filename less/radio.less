@@ -1,0 +1,103 @@
+.material-radio{
+  input[type=radio]{
+    display: none;
+    + label{
+      .img-circle;
+      position: relative;
+      padding: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      display: inline-block;
+      margin: 0 10px 0 2px;
+      border: 2px solid @grey700;
+
+      .focus{
+        .img-circle;
+        position: absolute;
+        left: -14px;
+        top: -14px;
+        padding: 20px;
+        opacity: 0.4;
+        display: none;
+        .animated;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        -ms-animation-duration: 0.1s;
+      }
+
+      &:active .focus{
+        .zoomIn;
+        display: block;
+        background-color: @green;
+      }
+    }
+
+    &:checked + label{
+      background-color: @green;
+      border-color: @green;
+
+      &:active .focus{
+        background-color: @grey600;
+      }
+    }
+  }
+
+  .radio-colors(@index, @colors) when (@index > 0) {
+    .radio-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+
+    &.@{color} {
+      input[type=radio]{
+        + label:active .focus {
+          background-color: @@color;
+        }
+        &:checked + label{
+          background-color: @@color;
+          border-color: @@color;
+        }
+      }
+    }
+  }
+  .radio-colors(length(@colors), @colors);
+}
+
+label.material-radio{
+  font-family: "robotoregular";
+  font-size: 12px;
+  margin-bottom: 5px;
+
+  input[type=radio] + label{
+    margin-bottom: -3px;
+  }
+
+  &:active input[type=radio]{
+    + label .focus{
+      .zoomIn;
+      display: block;
+      background-color: @green;
+    }
+
+    &:checked + label .focus{
+      background-color: @grey600;
+    }
+  }
+
+  .radio-colors(@index, @colors) when (@index > 0) {
+    .radio-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+
+    &:active.@{color} {
+      input[type=radio]{
+        + label .focus {
+          background-color: @@color;
+        }
+        &:checked + label{
+          background-color: @@color;
+          border-color: @@color;
+        }
+      }
+    }
+  }
+  .radio-colors(length(@colors), @colors);
+};
