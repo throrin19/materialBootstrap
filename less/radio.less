@@ -13,17 +13,23 @@
 
       .focus{
         .img-circle;
+        .animated;
         position: absolute;
         left: -14px;
         top: -14px;
         padding: 20px;
-        opacity: 0.4;
+        opacity: 0.4 !important;
         display: none;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        animation-duration: 0.1s;
       }
 
       &:active .focus{
         display: block;
         background-color: @green;
+        .zoomIn;
       }
     }
 
@@ -33,6 +39,7 @@
 
       &:active .focus{
         background-color: @grey600 !important;
+        .zoomIn;
       }
     }
   }
@@ -70,10 +77,12 @@ label.material-radio{
     + label .focus{
       display: block;
       background-color: @green;
+      .zoomIn;
     }
 
     &:checked + label .focus{
       background-color: @grey600 !important;
+      .zoomIn;
     }
   }
 
@@ -85,10 +94,12 @@ label.material-radio{
       input[type=radio]{
         + label .focus {
           background-color: @@color;
+          .zoomIn;
         }
         &:checked + label{
           background-color: @@color;
           border-color: @@color;
+          .zoomIn;
         }
       }
     }
