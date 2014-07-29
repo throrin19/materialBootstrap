@@ -32,7 +32,7 @@
       border-color: @green;
 
       &:active .focus{
-        background-color: @grey600;
+        background-color: @grey600 !important;
       }
     }
   }
@@ -60,6 +60,7 @@ label.material-radio{
   font-family: "robotoregular";
   font-size: 12px;
   margin-bottom: 5px;
+  cursor: pointer;
 
   input[type=radio] + label{
     margin-bottom: -3px;
@@ -72,7 +73,7 @@ label.material-radio{
     }
 
     &:checked + label .focus{
-      background-color: @grey600;
+      background-color: @grey600 !important;
     }
   }
 
