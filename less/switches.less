@@ -325,7 +325,7 @@ label.material-checkbox{
         position: absolute;
         top: 0;
         left: 0;
-        border: 2px solid @grey700;
+        border: 2px solid @grey600;
         background-color: @grey200;
         width: 22px;
         height: 22px;
@@ -374,4 +374,23 @@ label.material-checkbox{
       }
     }
   }
+
+  .switch-colors(@index, @colors) when (@index > 0) {
+    .switch-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+
+    &.@{color} input[type=checkbox]:checked + label{
+      .line {
+        background-color: @@color;
+      }
+      .selector{
+        border-color: @@color;
+        background-color: @@color;
+        .focus{
+          background-color: @@color;
+        }
+      }
+    }
+  }
+  .switch-colors(length(@colors), @colors);
 }
