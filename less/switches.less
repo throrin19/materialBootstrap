@@ -80,6 +80,24 @@
     }
   }
   .radio-colors(length(@colors), @colors);
+
+  input[type=radio]:disabled {
+    + label{
+      border-color: @grey500;
+
+      &:active .focus{
+        background-color: @grey600 !important;
+        .zoomIn;
+      }
+    }
+
+    &:checked + label{
+      border-color: @grey500;
+      .checked{
+        background-color: @grey500;
+      }
+    }
+  }
 }
 
 label.material-radio{
@@ -123,6 +141,24 @@ label.material-radio{
     }
   }
   .radio-colors(length(@colors), @colors);
+
+  input[type=radio]:disabled {
+    + label{
+      border-color: @grey500 !important;
+
+      .focus{
+        background-color: @grey600 !important;
+        .zoomIn;
+      }
+    }
+
+    &:checked + label{
+      border-color: @grey500 !important;
+      .checked{
+        background-color: @grey500 !important;
+      }
+    }
+  }
 };
 
 .material-checkbox{
