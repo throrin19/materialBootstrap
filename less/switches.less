@@ -393,4 +393,21 @@ label.material-checkbox{
     }
   }
   .switch-colors(length(@colors), @colors);
+
+  input[type=checkbox]:disabled {
+    + label {
+      .selector{
+        border-color: @grey400;
+      }
+    }
+    &:checked + label {
+      .line {
+        background-color: @grey400;
+      }
+      .selector{
+        border-color: @grey400;
+        background-color: @grey400;
+      }
+    }
+  }
 }
