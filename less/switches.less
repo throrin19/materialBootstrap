@@ -83,18 +83,17 @@
 
   input[type=radio]:disabled {
     + label{
-      border-color: @grey500;
+      border-color: @grey500 !important;
 
-      &:active .focus{
+      .focus{
         background-color: @grey600 !important;
-        .zoomIn;
       }
     }
 
     &:checked + label{
-      border-color: @grey500;
+      border-color: @grey500 !important;
       .checked{
-        background-color: @grey500;
+        background-color: @grey500 !important;
       }
     }
   }
@@ -141,24 +140,6 @@ label.material-radio{
     }
   }
   .radio-colors(length(@colors), @colors);
-
-  input[type=radio]:disabled {
-    + label{
-      border-color: @grey500 !important;
-
-      .focus{
-        background-color: @grey600 !important;
-        .zoomIn;
-      }
-    }
-
-    &:checked + label{
-      border-color: @grey500 !important;
-      .checked{
-        background-color: @grey500 !important;
-      }
-    }
-  }
 };
 
 .material-checkbox{
@@ -250,6 +231,23 @@ label.material-radio{
     }
   }
   .checkbox-colors(length(@colors), @colors);
+
+  input[type=checkbox]:disabled {
+    + label {
+      border-color: @grey500 !important;
+
+      .focus{
+        background-color: @grey600 !important;
+      }
+
+      .checked{
+        background-color: @grey500 !important;
+      }
+    }
+    &:checked + label{
+      border-color: @grey500 !important;
+    }
+  }
 }
 
 label.material-checkbox{
