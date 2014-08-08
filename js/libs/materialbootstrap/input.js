@@ -1,5 +1,5 @@
 /**
- * Material Input function to add floating label and input-control color focus
+ * Material Input function to add floating label and input-group color focus
  */
 (function ($){
     var colorNames  = [ 'red', 'pink', 'purple', 'dpurple', 'indigo', 'blue', 'lblue', 'cyan', 'teal', 'green', 'lgreen', 'lime', 'yellow', 'amber', 'orange', 'dorange', 'brown', 'grey', 'bgrey'],
@@ -25,14 +25,48 @@
         });
     }
 
-    var oldFloatingLabel = $.fn.floatingLabel;
+    function InputGroupFocus(options) {
+        return this.each(function () {
+            var $this = $(this),
+                $addon = $this.find('.text-field-group-addon'),
+                $input = $this.find('input');
 
-    $.fn.floatingLabel = FloatingLabel;
+            function Focus() {
+                var classList = $input.attr('class').split(/\s+/),
+                    hasColor  = false;
+                $.each( classList, function(i, item){
+                    $.each(colorNames, function (index, color) {
+                        if (item === color) {
+                            $addon.css('color', colorValues[index]);
+                            hasColor = true;
+                        }
+                    });
+                });
+                if (!hasColor) {
+                    $addon.css('color', colorValues[5]);
+                }
+            }
+            function Unfocus() {
+                $addon.css('color', '');
+            }
+            $input.on('focus', Focus);
+            $input.on('blur', Unfocus);
+        });
+    }
+
+    var oldFloatingLabel    = $.fn.floatingLabel,
+        oldInputGroupFocus  = $.fn.inputGroupFocus;
+
+    $.fn.floatingLabel      = FloatingLabel;
+    $.fn.inputGroupFocus    = InputGroupFocus;
 
     // No Conflict Mode
     $.fn.floatingLabel.noConflict = function () {
         $.fn.floatingLabel = oldFloatingLabel;
         return this;
+    };
+    $.fn.inputGroupFocus.noConflict = function () {
+        $.fn.inputGroupFocus = oldInputGroupFocus;
     };
 
 
@@ -40,6 +74,7 @@
     $(function() {
         $(document).bind('DOMSubtreeModified', function(e){
             $('.floating-label').floatingLabel();
+            $('.text-field-group').inputGroupFocus();
         });
     });
 })(jQuery);
