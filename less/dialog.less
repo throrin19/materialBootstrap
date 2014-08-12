@@ -1,0 +1,82 @@
+.modal-open {
+  .modal-open;
+}
+
+.material-modal{
+  .modal;
+
+  .modal-dialog{
+    .modal-dialog;
+
+    .modal-content{
+      .modal-content;
+      .rounded-corners(2px);
+      border: none;
+
+      .modal-header{
+        .modal-header;
+        padding: 24px;
+        border: none;
+
+        h4{
+          font-family: "robotomedium";
+          font-size: 24px;
+          margin: 5px 0 0 0;
+        }
+
+        .close {
+          .flat-other;
+          .mini;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+
+      .modal-body {
+        .modal-body;
+        padding: 24px;
+        max-height: 380px;
+        overflow: auto;
+      }
+
+      .modal-footer {
+        .modal-footer;
+        padding: 16px;
+        border: none;
+        button {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+.modal-backdrop {
+  .modal-backdrop;
+  background-color: @grey500;
+}
+
+.modal-scrollbar-measure {
+  .modal-scrollbar-measure;
+}
+
+// Scale up the modal
+@media (min-width: @screen-sm-min) {
+  // Automatically set modal's width for larger viewports
+  .material-modal {
+    .modal-dialog {
+      width: @modal-md;
+      margin: 30px auto;
+      .modal-content {
+        .z-depth-3;
+      }
+    }
+  }
+  // Modal sizes
+  .modal-sm { width: @modal-sm; }
+}
+
+@media (min-width: @screen-md-min) {
+  .modal-lg { width: @modal-md; }
+}
