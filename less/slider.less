@@ -52,14 +52,28 @@
       position: absolute;
       top: 50% - 15px;
       left: 5px;
-      background-color: @grey100;
-      border: 2px solid @grey;
+      background-color: @grey50;
+      border: 2px solid @grey300;
       width: 15px;
       height: 15px;
       .rounded-corners(50%);
       cursor: pointer;
       .focus {
-
+        display: none;
+        .animated;
+        .zoomIn;
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: 23px;
+        height: 23px;
+        .rounded-corners(50%);
+        cursor: pointer;
+        background-color: @indigo;
+        -webkit-animation-duration: 0.2s;
+        -moz-animation-duration: 0.2s;
+        -o-animation-duration: 0.2s;
+        animation-duration: 0.2s;
       }
     }
   }

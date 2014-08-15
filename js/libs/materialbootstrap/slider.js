@@ -82,8 +82,12 @@
                 $icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>'),
                 $label          = $('<label class="slider-label" for="'+ opts.inputName + '">'+ opts.label +'</label>'),
                 $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div></div></div>'),
+                $selector       = $slider.find('.selector'),
+                $focus          = $selector.find('.focus'),
+                $progress       = $slider.find('.slider-bar-colored'),
                 originalWidth   = $element.width(),
-                width           = originalWidth;
+                width           = originalWidth,
+                pressed         = false;
 
             if (opts.icon && opts.icon.length > 0) {
                 width -= 59;
@@ -109,6 +113,19 @@
             if (opts.showInput === true) {
                 $element.append($input);
             }
+
+            // events
+            $selector.bind('mousedown', function () {
+                pressed = true;
+                $focus.css('display', 'block');
+            });
+            $(document).bind('mouseup', function () {
+                pressed = false;
+                $focus.css('display', 'none');
+            });
+            $selector.bind('mousemove', function (e) {
+
+            });
         });
     }
 
