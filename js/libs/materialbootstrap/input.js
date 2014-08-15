@@ -67,6 +67,7 @@
     };
     $.fn.inputGroupFocus.noConflict = function () {
         $.fn.inputGroupFocus = oldInputGroupFocus;
+        return this;
     };
 
 
