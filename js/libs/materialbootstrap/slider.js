@@ -84,10 +84,14 @@
                 $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div></div></div>'),
                 $selector       = $slider.find('.selector'),
                 $focus          = $selector.find('.focus'),
+                $bar            = $slider.find('.slider-bar'),
                 $progress       = $slider.find('.slider-bar-colored'),
                 originalWidth   = $element.width(),
                 width           = originalWidth,
-                pressed         = false;
+                pressed         = false,
+                prevX           = 0,
+                left            = 0,
+                decal           = 0;
 
             if (opts.icon && opts.icon.length > 0) {
                 width -= 59;
@@ -117,14 +121,37 @@
             // events
             $selector.bind('mousedown', function () {
                 pressed = true;
+                prevX   = 0;
                 $focus.css('display', 'block');
             });
             $(document).bind('mouseup', function () {
+                if (pressed === true) {
+                    // launch event and set value and placement with step
+
+                }
                 pressed = false;
                 $focus.css('display', 'none');
             });
             $selector.bind('mousemove', function (e) {
+                if (pressed === true) {
+                    if (prevX == 0) {
+                        prevX = e.pageX;
+                        left  = +$selector.css('left').replace('px', '');
+                    }
+                    decal = (e.pageX - prevX)+left;
 
+                    if (decal < 5) {
+                        decal = opts.min;
+                    }
+                    if (decal > ($bar.width()-5)) {
+                        decal = $bar.width()-5;
+                    }
+
+                    $selector.css('left', decal);
+                    $progress.css('width', decal);
+
+                    // update input value with steps
+                }
             });
         });
     }
