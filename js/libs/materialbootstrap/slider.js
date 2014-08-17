@@ -201,6 +201,85 @@
                     $input.val(value);
                 }
             });
+            $input.on('keyup', function () {
+                value = $input.val();
+
+                if (value < opts.min) {
+                    value = opts.min;
+                }
+                if (value > opts.max) {
+                    value = opts.max;
+                }
+                if (value%opts.step !== 0) {
+                    if (value > 0) {
+                        value = Math.floor(value/opts.step) * opts.step;
+                    } else if(value < 0) {
+                        value = Math.ceil(value/opts.step) * opts.step;
+                    }
+                }
+
+                var decal = ((value-opts.min)/opts.max)*(opts.max/opts.min),
+                    left  = ($bar.width()*decal) + 5;
+
+                if (left >= $bar.width()) {
+                    left = left - 5;
+                }
+
+                $progress.css('width',(decal*100)+'%');
+                $selector.css('left', left + 'px');
+
+                if (left > 5) {
+                    $selector.css({
+                        'border-color' : materialColors[opts.color],
+                        'background-color' : materialColors[opts.color]
+                    });
+                } else {
+                    $selector.css({
+                        'border-color' : '',
+                        'background-color' : ''
+                    });
+                }
+            });
+            $input.on('change', function () {
+                value = $input.val();
+
+                if (value < opts.min) {
+                    value = opts.min;
+                }
+                if (value > opts.max) {
+                    value = opts.max;
+                }
+                if (value%opts.step !== 0) {
+                    if (value > 0) {
+                        value = Math.floor(value/opts.step) * opts.step;
+                    } else if(value < 0) {
+                        value = Math.ceil(value/opts.step) * opts.step;
+                    }
+                }
+
+                var decal = ((value-opts.min)/opts.max)*(opts.max/opts.min),
+                    left  = ($bar.width()*decal) + 5;
+
+                if (left >= $bar.width()) {
+                    left = left - 5;
+                }
+
+                $progress.css('width',(decal*100)+'%');
+                $selector.css('left', left + 'px');
+                $input.val(value);
+
+                if (left > 5) {
+                    $selector.css({
+                        'border-color' : materialColors[opts.color],
+                        'background-color' : materialColors[opts.color]
+                    });
+                } else {
+                    $selector.css({
+                        'border-color' : '',
+                        'background-color' : ''
+                    });
+                }
+            });
         });
     }
 
