@@ -75,6 +75,28 @@
         -o-animation-duration: 0.1s;
         animation-duration: 0.1s;
       }
+      .tooltip {
+        display: none;
+        .animated;
+        .fadeInUp;
+        font-size: 10px;
+        font-family: 'robotomedium';
+        background-color: @grey900;
+        color: @grey50;
+        .rounded-corners(2px);
+        padding: 2px 4px;
+        position: absolute;
+        top: -30px;
+        -webkit-animation-duration: 0.1s;
+        -moz-animation-duration: 0.1s;
+        -o-animation-duration: 0.1s;
+        animation-duration: 0.1s;
+      }
+      &:hover {
+        .tooltip {
+          display: block;
+        }
+      }
     }
   }
 }

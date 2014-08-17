@@ -81,11 +81,12 @@
                 $input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ opts.color +'" />'),
                 $icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>'),
                 $label          = $('<label class="slider-label" for="'+ opts.inputName + '">'+ opts.label +'</label>'),
-                $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div></div></div>'),
+                $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>'),
                 $selector       = $slider.find('.selector'),
                 $focus          = $selector.find('.focus'),
                 $bar            = $slider.find('.slider-bar'),
                 $progress       = $slider.find('.slider-bar-colored'),
+                $tooltip        = $selector.find('.tooltip'),
                 originalWidth   = $element.width(),
                 width           = originalWidth,
                 pressed         = false,
@@ -199,6 +200,7 @@
                     }
                     // update input value with steps
                     $input.val(value);
+                    $tooltip.html(value);
                 }
             });
             $input.on('keyup', function () {
