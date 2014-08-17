@@ -122,6 +122,8 @@
                 $element.append($input);
             }
 
+            $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
+
             // events
             $selector.bind('mousedown', function () {
                 pressed = true;
