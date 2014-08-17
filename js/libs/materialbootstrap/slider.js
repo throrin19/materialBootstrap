@@ -91,7 +91,10 @@
                 pressed         = false,
                 prevX           = 0,
                 left            = 0,
-                decal           = 0;
+                decal           = 0,
+                value           = opts.value,
+                valueRange      = opts.max - opts.min,
+                percent         = 0; // @todo change that
 
             if (opts.icon && opts.icon.length > 0) {
                 width -= 59;
@@ -143,13 +146,32 @@
                     if (decal < 5) {
                         decal = opts.min;
                     }
-                    if (decal > ($bar.width()-5)) {
-                        decal = $bar.width()-5;
+                    if (decal > $bar.width()) {
+                        decal = $bar.width();
                     }
 
                     $selector.css('left', decal);
                     $progress.css('width', decal);
 
+                    // calculate value
+                    percent = Math.round(($progress.width()/$bar.width())*100)/100;
+                    value   = Math.round(opts.min + percent*(opts.max-valueRange));
+
+                    if (value < opts.min) {
+                        value = opts.min;
+                    }
+                    if (value > opts.max) {
+                        value = opts.max;
+                    }
+                    if (value%opts.step !== 0) {
+                        if (value > 0) {
+                            value = Math.ceil(value/opts.step) * opts.step;
+                        } else if(value < 0) {
+                            value = Math.floor(value/opts.step) * opts.step;
+                        }
+                    }
+
+                    console.log(value);
                     // update input value with steps
                 }
             });
