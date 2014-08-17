@@ -45,7 +45,7 @@
                 value       : 0,
                 step        : 1,
                 showInput   : false,
-                onChange    : function () {},
+                onChange    : function (value) {},
                 color       : 'indigo',
                 dark        : false,
                 inputName   : ''
@@ -130,7 +130,28 @@
             $(document).bind('mouseup', function () {
                 if (pressed === true) {
                     // launch event and set value and placement with step
+                    opts.onChange(value);
+                    var decal = ((value-opts.min)/opts.max)*(opts.max/opts.min),
+                        left  = ($bar.width()*decal) + 5;
 
+                    if (left >= $bar.width()) {
+                        left = left - 5;
+                    }
+
+                    $progress.css('width',(decal*100)+'%');
+                    $selector.css('left', left + 'px');
+
+                    if (left > 5) {
+                        $selector.css({
+                            'border-color' : materialColors[opts.color],
+                            'background-color' : materialColors[opts.color]
+                        });
+                    } else {
+                        $selector.css({
+                            'border-color' : '',
+                            'background-color' : ''
+                        });
+                    }
                 }
                 pressed = false;
                 $focus.css('display', 'none');
@@ -155,7 +176,13 @@
 
                     // calculate value
                     percent = Math.round(($progress.width()/$bar.width())*100)/100;
-                    value   = Math.round(opts.min + percent*(opts.max-valueRange));
+                    value   = opts.min + percent*(opts.max-valueRange);
+
+                    if (value > 0) {
+                        value = Math.floor(value);
+                    } else if (value < 0) {
+                        value = Math.ceil(value);
+                    }
 
                     if (value < opts.min) {
                         value = opts.min;
@@ -165,14 +192,13 @@
                     }
                     if (value%opts.step !== 0) {
                         if (value > 0) {
-                            value = Math.ceil(value/opts.step) * opts.step;
-                        } else if(value < 0) {
                             value = Math.floor(value/opts.step) * opts.step;
+                        } else if(value < 0) {
+                            value = Math.ceil(value/opts.step) * opts.step;
                         }
                     }
-
-                    console.log(value);
                     // update input value with steps
+                    $input.val(value);
                 }
             });
         });
