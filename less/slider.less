@@ -100,6 +100,23 @@
     }
   }
 
+  &.range {
+    .text-field.left {
+      text-align: left;
+    }
+    .slider {
+      .slider-bar {
+        position: relative;
+        .slider-bar-colored {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: inherit;
+        }
+      }
+    }
+  }
+
   // dark
   &.dark {
     .slider-icon-addon i{
