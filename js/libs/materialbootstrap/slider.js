@@ -14,6 +14,7 @@
  * @param {string}      [options.label]         Slider Label
  * @param {string}      [options.color]         Slider color
  * @param {boolean}     [options.dark]          True : dark theme, false : light theme
+ * @param {boolean}     [options.disabled]      True : slider is disable
  */
 (function ($){
     var materialColors = {
@@ -64,6 +65,7 @@
     }
 
     function Slider(opts) {
+        var color = opts.color;
         // controls on value
         if (!opts.value) {
             opts.value = opts.min;
@@ -74,11 +76,11 @@
             opts.color = 'indigo';
         }
         if (opts.dark === true) {
-            opts.color += ' dark';
+            color += ' dark';
         }
 
         var $element        = opts.$element,
-            $input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ opts.color +'" />'),
+            $input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ color +'" />'),
             $icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>'),
             $label          = $('<label class="slider-label" for="'+ opts.inputName + '">'+ opts.label +'</label>'),
             $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>'),
@@ -94,7 +96,7 @@
             left            = 0,
             decal           = 0,
             value           = opts.value,
-            valueRange      = opts.max - opts.min,
+            valueRange      = opts.max - opts.min === opts.max ? 0 : opts.max - opts.min,
             percent         = 0; // @todo change that
 
         if (opts.icon && opts.icon.length > 0) {
@@ -105,7 +107,7 @@
             $input.css('width', originalWidth*0.10);
         }
 
-        $element.addClass('material-slider ' + opts.color);
+        $element.addClass('material-slider ' + color);
 
         $slider.css({
             width : width
@@ -145,10 +147,12 @@
                     value = Math.ceil(value/opts.step) * opts.step;
                 }
             }
+            console.log(value);
             return value;
         }
         function valueToPosition(value) {
-            var decal = ((value-opts.min)/opts.max)*(opts.max/opts.min),
+            var min   = opts.min > 0 ? opts.min : opts.max,
+                decal = ((value-opts.min)/opts.max)*(opts.max/min),
                 left  = ($bar.width()*decal) + 5;
 
             if (left >= $bar.width()) {
@@ -171,6 +175,8 @@
             }
         }
 
+        // init value
+        valueToPosition(opts.value);
 
         // events
         $selector.bind('mousedown', function () {

@@ -101,6 +101,21 @@
   }
 
   // dark
+  &.dark {
+    .slider-icon-addon i{
+      color: @grey;
+    }
+
+    .slider {
+      .slider-bar {
+        background-color: @grey600;
+      }
+      .selector {
+        background-color: @grey800;
+        border-color: @grey600;
+      }
+    }
+  }
 
   // colors
   .slider-colors(@index, @colors) when (@index > 0) {

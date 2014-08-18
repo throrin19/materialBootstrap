@@ -11,8 +11,16 @@
                 icon : 'speaker',
                 showInput: true,
                 max : 10,
-                min : 5,
-                color : 'red'
+                min : 0,
+                color : 'red',
+                value : 8
+            });
+            $('.test-slider-d').materialSlider({
+                icon : 'speaker',
+                showInput: true,
+                max : 10,
+                min : 0,
+                dark : true
             });
         });
 
@@ -22,6 +30,8 @@
 <div style="padding: 30px;">
     <div class="test-slider" style="width: 400px;"></div>
 </div>
-<div style="padding: 30px;"></div>
+<div style="padding: 30px; background-color: #424242">
+    <div class="test-slider-d" style="width: 400px;"></div>
+</div>
 </body>
 </html>
