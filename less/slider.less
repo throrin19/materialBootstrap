@@ -99,4 +99,23 @@
       }
     }
   }
+
+  // dark
+
+  // colors
+  .slider-colors(@index, @colors) when (@index > 0) {
+    .slider-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+    &.@{color} {
+      .slider {
+        .slider-bar .slider-bar-colored {
+          background-color: @@color;
+        }
+        .selector .focus {
+          background-color: @@color;
+        }
+      }
+    }
+  }
+  .slider-colors(length(@colors), @colors);
 }
