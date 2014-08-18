@@ -31,6 +31,16 @@
                 min : 0,
                 range : true
             });
+            $('.disabled-range-slider').materialSlider({
+                icon : 'speaker',
+                showInput: true,
+                max : 100,
+                min : 0,
+                range : true,
+                value1 : 20,
+                value2 : 40,
+                disabled : true
+            });
             $('.test-slider-d').materialSlider({
                 icon : 'speaker',
                 showInput: true,
@@ -60,6 +70,8 @@
     <div class="disabled-slider" style="width: 400px;"></div>
     <label>Range Slider</label>
     <div class="range-slider" style="width: 400px;"></div>
+    <label>Range Slider Disabled</label>
+    <div class="disabled-range-slider" style="width: 400px;"></div>
 </div>
 <div style="padding: 30px; background-color: #424242">
     <label style="color: #9e9e9e">Dark Slider</label>

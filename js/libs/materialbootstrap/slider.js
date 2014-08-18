@@ -178,6 +178,7 @@
                     'background-color' : ''
                 });
             }
+            $tooltip.html(value);
         }
 
         // init value
@@ -288,7 +289,8 @@
 
         if (opts.disabled === true) {
             $element.addClass('disabled');
-            $input.attr('disabled', 'disabled');
+            $inputLeft.attr('disabled', 'disabled');
+            $inputRight.attr('disabled', 'disabled');
         }
 
         $slider.css({
@@ -387,8 +389,10 @@
             $selector2.css('left', left2 + 'px');
             $progress.css({
                 left : left + 'px',
-                right : ($bar.width() - left2) + 'px'
-            })
+                right : right + 'px'
+            });
+            $tooltip1.html(values.value1);
+            $tooltip2.html(values.value2);
         }
 
         $selector1.on('mousedown', function () {
@@ -433,23 +437,82 @@
                     decal1 = $bar.width();
                 }
 
-                var width = $progress.width() - decal1;
-
-                $selector1.css('left', decal1);
-                $progress.css('left', decal1);
-
                 // calculate value
                 percent1 = Math.round((decal1/$bar.width())*100)/100;
                 value1   = opts.min + percent1*(opts.max-valueRange);
 
-                var values = roundValues(value1, value2);
-                value1 = values.value1;
-                value2 = values.value2;
+                if (value1 < value2 - opts.step) {
+                    $selector1.css('left', decal1);
+                    $progress.css('left', decal1);
 
-                // update input value with steps
-                $inputLeft.val(value1);
-                $tooltip1.html(value1);
+                    var values = roundValues(value1, value2);
+                    value1 = values.value1;
+                    value2 = values.value2;
+
+                    // update input value with steps
+                    $inputLeft.val(value1);
+                    $tooltip1.html(value1);
+                }
             }
+        });
+        $selector2.bind('mousemove', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (pressed2 === true && opts.disabled !== true) {
+                if (prevX2 == 0) {
+                    prevX2 = e.pageX;
+                    left2  = +$selector2.css('left').replace('px', '');
+                }
+                decal2 = (e.pageX - prevX2)+left2;
+
+                if (decal2 < 5) {
+                    decal2 = opts.min + opts.step;
+                }
+                if (decal2 > $bar.width()) {
+                    decal2 = $bar.width();
+                }
+
+                // calculate value
+                percent2 = Math.round((decal2/$bar.width())*100)/100;
+                value2   = opts.min + percent2*(opts.max-valueRange);
+
+                if (value2 > value1 + opts.step) {
+                    $selector2.css('left', decal2);
+                    $progress.css('right', $bar.width() - decal2);
+
+                    var values = roundValues(value1, value2);
+                    value1 = values.value1;
+                    value2 = values.value2;
+
+                    // update input value with steps
+                    $inputRight.val(value2);
+                    $tooltip2.html(value2);
+                }
+            }
+        });
+        $inputLeft.on('keyup', function () {
+            var values = roundValues(+$inputLeft.val(),value2);
+            valuesToPosition(values);
+        });
+        $inputLeft.on('change', function () {
+            var values = roundValues(+$inputLeft.val(),value2);
+            valuesToPosition(values);
+            value1 = values.value1;
+            value2 = values.value2;
+            $inputLeft.val(values.value1);
+            $inputRight.val(values.value2);
+        });
+        $inputRight.on('keyup', function () {
+            var values = roundValues(value1, +$inputRight.val());
+            valuesToPosition(values);
+        });
+        $inputRight.on('change', function () {
+            var values = roundValues(value1, +$inputRight.val());
+            valuesToPosition(values);
+            value1 = values.value1;
+            value2 = values.value2;
+            $inputLeft.val(values.value1);
+            $inputRight.val(values.value2);
         });
     }
 
