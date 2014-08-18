@@ -26,8 +26,6 @@ input.text-field {
     // @todo animation
   }
 
-  .colors-focus(length(@colors), @colors, border-color);
-
   &.error {
     border-bottom: 2px solid @red;
     &:focus {
@@ -38,7 +36,13 @@ input.text-field {
   &.dark {
     color : @grey200;
     border-color: @grey600;
+
+    &:focus {
+      border-color: @blue;
+    }
   }
+
+  .colors-focus(length(@colors), @colors, border-color);
 }
 
 div.floating-label {
