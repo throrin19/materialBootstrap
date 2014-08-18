@@ -133,4 +133,30 @@
     }
   }
   .slider-colors(length(@colors), @colors);
+
+  &.disabled {
+    .slider {
+      .slider-bar .slider-bar-colored {
+        background-color: @grey300 !important;
+      }
+      .selector {
+        background-color: @grey300 !important;
+        border-color: @grey300 !important;
+        cursor: inherit;
+      }
+    }
+
+
+    &.dark {
+      .slider {
+        .slider-bar .slider-bar-colored {
+          background-color: @grey600 !important;
+        }
+        .selector {
+          background-color: @grey600 !important;
+          border-color: @grey600 !important;
+        }
+      }
+    }
+  }
 }

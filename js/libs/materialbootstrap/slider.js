@@ -182,7 +182,9 @@
         $selector.bind('mousedown', function () {
             pressed = true;
             prevX   = 0;
-            $focus.css('display', 'block');
+            if (opts.disabled !== true) {
+                $focus.css('display', 'block');
+            }
         });
         $(document).bind('mouseup', function () {
             if (pressed === true) {
@@ -194,7 +196,7 @@
             $focus.css('display', 'none');
         });
         $selector.bind('mousemove', function (e) {
-            if (pressed === true) {
+            if (pressed === true && opts.disabled !== true) {
                 if (prevX == 0) {
                     prevX = e.pageX;
                     left  = +$selector.css('left').replace('px', '');
