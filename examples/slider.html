@@ -15,6 +15,15 @@
                 color : 'red',
                 value : 8
             });
+            $('.disabled-slider').materialSlider({
+                icon : 'speaker',
+                showInput: true,
+                max : 100,
+                min : 0,
+                color : 'purple',
+                value : 35,
+                disabled : true
+            });
             $('.test-slider-d').materialSlider({
                 icon : 'speaker',
                 showInput: true,
@@ -22,16 +31,32 @@
                 min : 0,
                 dark : true
             });
+            $('.disabled-slider-d').materialSlider({
+                icon : 'speaker',
+                showInput: true,
+                max : 100,
+                min : 0,
+                color : 'purple',
+                value : 35,
+                dark : true,
+                disabled : true
+            });
         });
 
     </script>
 </head>
 <body>
 <div style="padding: 30px;">
+    <label>Normal Slider</label>
     <div class="test-slider" style="width: 400px;"></div>
+    <label>Disabled Slider</label>
+    <div class="disabled-slider" style="width: 400px;"></div>
 </div>
 <div style="padding: 30px; background-color: #424242">
+    <label style="color: #9e9e9e">Dark Slider</label>
     <div class="test-slider-d" style="width: 400px;"></div>
+    <label style="color: #9e9e9e">Disabled Slider</label>
+    <div class="disabled-slider-d" style="width: 400px;"></div>
 </div>
 </body>
 </html>

@@ -11,7 +11,6 @@
  * @param {function}    options.onChange        Called on input or selector change
  * @param {string}      options.inputName       Input Name to get value in form data
  * @param {string}      [options.icon]          Icon for Slider (without icon-)
- * @param {string}      [options.label]         Slider Label
  * @param {string}      [options.color]         Slider color
  * @param {boolean}     [options.dark]          True : dark theme, false : light theme
  * @param {boolean}     [options.disabled]      True : slider is disable
@@ -50,7 +49,8 @@
                 color       : 'indigo',
                 dark        : false,
                 inputName   : '',
-                range       : false
+                range       : false,
+                disabled    : false
             },
             opts = $.extend({}, defaultOptions, options);
 
@@ -82,7 +82,6 @@
         var $element        = opts.$element,
             $input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ color +'" />'),
             $icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>'),
-            $label          = $('<label class="slider-label" for="'+ opts.inputName + '">'+ opts.label +'</label>'),
             $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>'),
             $selector       = $slider.find('.selector'),
             $focus          = $selector.find('.focus'),
@@ -109,13 +108,15 @@
 
         $element.addClass('material-slider ' + color);
 
+        if (opts.disabled === true) {
+            $element.addClass('disabled');
+            $input.attr('disabled', 'disabled');
+        }
+
         $slider.css({
             width : width
         });
 
-        if (opts.label && opts.label.length > 0) {
-            $element.append($label);
-        }
         if (opts.icon && opts.icon.length > 0) {
             $element.append($icon);
         }
@@ -147,7 +148,6 @@
                     value = Math.ceil(value/opts.step) * opts.step;
                 }
             }
-            console.log(value);
             return value;
         }
         function valueToPosition(value) {
