@@ -35,6 +35,7 @@
 
       .modal-body {
         .modal-body;
+        font-family: 'robotoregular';
         padding: 0 24px;
         max-height: 380px;
         overflow: auto;
@@ -47,7 +48,22 @@
         button {
           margin: 0;
         }
+        &.full-width {
+          button {
+            float:right;
+            clear:right;
+          }
+        }
       }
+    }
+  }
+
+  &.dark .modal-dialog .modal-content{
+    color : @darkColor;
+    background-color: @darkBackground;
+
+    .modal-header .close {
+      color: @darkColor;
     }
   }
 }
