@@ -61,6 +61,17 @@
     }
   }
 
+  &.dark{
+    input[type=radio]{
+      + label {
+        border-color: @grey300;
+      }
+      &:checked + label{
+        border-color: @green;
+      }
+    }
+  }
+
   .radio-colors(@index, @colors) when (@index > 0) {
     .radio-colors(@index - 1, @colors);
     @color : e(extract(@colors, @index));
@@ -208,6 +219,17 @@ label.material-radio{
       &:active .focus{
         background-color: @grey600 !important;
         .zoomIn;
+      }
+    }
+  }
+
+  &.dark{
+    input[type=checkbox]{
+      + label {
+        border-color: @grey300;
+      }
+      &:checked + label{
+        border-color: @green;
       }
     }
   }
