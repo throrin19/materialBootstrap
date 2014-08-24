@@ -4,8 +4,25 @@
 
 .dropdown-menu {
   .dropdown-menu;
+  margin-top : 0;
+  padding: 0;
+  max-height: 0;
+  display: block;
+  overflow: hidden;
+  border: none;
+  top: 41px;
+  left: 8px;
+  .rounded-corners(0);
+  /* Set our transitions up. */
+  -webkit-transition: max-height 0.5s;
+  -moz-transition: max-height 0.5s;
+  -ms-transition: max-height 0.5s;
+  transition: max-height 0.5s
 }
 
 .open {
-  .open;
+  > .dropdown-menu {
+    max-height: 200px;
+    padding: 5px 0;
+  }
 }
