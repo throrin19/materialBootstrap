@@ -10,19 +10,32 @@
   display: block;
   overflow: hidden;
   border: none;
-  top: 41px;
-  left: 8px;
+  top: 0;
+  left: 0;
   .rounded-corners(0);
   /* Set our transitions up. */
   -webkit-transition: max-height 0.5s;
   -moz-transition: max-height 0.5s;
   -ms-transition: max-height 0.5s;
-  transition: max-height 0.5s
+  transition: max-height 0.5s;
+
+  li a{
+    padding: 0 16px;
+    height: 48px;
+    .ellipsis;
+    text-decoration: none;
+    line-height: 43px;
+  }
+
+  li.divider {
+    margin: 0;
+  }
 }
 
 .open {
   > .dropdown-menu {
-    max-height: 200px;
-    padding: 5px 0;
+    overflow: auto;
+    max-height: 500px;
+    padding: 8px 0;
   }
 }
