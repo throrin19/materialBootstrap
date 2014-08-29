@@ -51,7 +51,7 @@
                 dark        : false,
                 inputName   : '',
                 disabled    : false,
-                range       : false,
+                type        : 'normal',
                 value1      : 0,
                 value2      : 100,
                 inputName1  : '',
@@ -61,7 +61,7 @@
 
         return this.each(function () {
             opts.$element = $(this);
-            if (opts.range === true) {
+            if (opts.type === 'range') {
                 Range(opts);
             } else {
                 Slider(opts);
@@ -69,13 +69,45 @@
         });
     }
 
+    // all common functions, elements
+    var common = {
+        roundValue : function roundValue(value, opts) {
+            if (value > 0) {
+                value = Math.floor(value);
+            } else if (value < 0) {
+                value = Math.ceil(value);
+            }
+
+            if (value < opts.min) {
+                value = opts.min;
+            }
+            if (value > opts.max) {
+                value = opts.max;
+            }
+            if (value%opts.step !== 0) {
+                if (value > 0) {
+                    value = Math.floor(value/opts.step) * opts.step;
+                } else if(value < 0) {
+                    value = Math.ceil(value/opts.step) * opts.step;
+                }
+            }
+            return value;
+        },
+        tooltip : function tooltip($tooltip, $selector) {
+            var left = ($selector.width() - $tooltip.width())/2 -3;
+            $tooltip.css({
+                left : left + 'px'
+            });
+        }
+    };
+
     function Slider(opts) {
         var color = opts.color;
         // controls on value
         if (!opts.value) {
             opts.value = opts.min;
         }
-        opts.value = roundValue(opts.value);
+        opts.value = common.roundValue(opts.value, opts);
 
         if (!materialColors[opts.color]) {
             opts.color = 'indigo';
@@ -130,31 +162,11 @@
             $element.append($input);
         }
 
+        common.tooltip($tooltip, $selector);
+
         $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
 
         // coonvert functions
-        function roundValue(value) {
-            if (value > 0) {
-                value = Math.floor(value);
-            } else if (value < 0) {
-                value = Math.ceil(value);
-            }
-
-            if (value < opts.min) {
-                value = opts.min;
-            }
-            if (value > opts.max) {
-                value = opts.max;
-            }
-            if (value%opts.step !== 0) {
-                if (value > 0) {
-                    value = Math.floor(value/opts.step) * opts.step;
-                } else if(value < 0) {
-                    value = Math.ceil(value/opts.step) * opts.step;
-                }
-            }
-            return value;
-        }
         function valueToPosition(value) {
             var min   = opts.min > 0 ? opts.min : opts.max,
                 decal = ((value-opts.min)/opts.max)*(opts.max/min),
@@ -179,6 +191,7 @@
                 });
             }
             $tooltip.html(value);
+            common.tooltip($tooltip, $selector);
         }
 
         // init value
@@ -225,18 +238,19 @@
                 percent = Math.round(($progress.width()/$bar.width())*100)/100;
                 value   = opts.min + percent*(opts.max-valueRange);
 
-                value = roundValue(value);
+                value = common.roundValue(value, opts);
                 // update input value with steps
                 $input.val(value);
                 $tooltip.html(value);
+                common.tooltip($tooltip, $selector)
             }
         });
         $input.on('keyup', function () {
-            value = roundValue($input.val());
+            value = common.roundValue($input.val(), opts);
             valueToPosition(value);
         });
         $input.on('change', function () {
-            value = roundValue($input.val());
+            value = common.roundValue($input.val(), opts);
             valueToPosition(value);
             $input.val(value);
         });
@@ -320,33 +334,13 @@
         });
         valuesToPosition(opts);
 
+        common.tooltip($tooltip1, $selector1);
+        common.tooltip($tooltip2, $selector2);
 
         // functions
-        function roundValue(value) {
-            if (value > 0) {
-                value = Math.floor(value);
-            } else if (value < 0) {
-                value = Math.ceil(value);
-            }
-
-            if (value < opts.min) {
-                value = opts.min;
-            }
-            if (value > opts.max) {
-                value = opts.max;
-            }
-            if (value%opts.step !== 0) {
-                if (value > 0) {
-                    value = Math.floor(value/opts.step) * opts.step;
-                } else if(value < 0) {
-                    value = Math.ceil(value/opts.step) * opts.step;
-                }
-            }
-            return value;
-        }
         function roundValues(value1, value2) {
-            value1 = roundValue(value1);
-            value2 = roundValue(value2);
+            value1 = common.roundValue(value1, opts);
+            value2 = common.roundValue(value2, opts);
 
             if (value1 > value2) {
                 value1 = value2 - opts.step;
@@ -452,6 +446,7 @@
                     // update input value with steps
                     $inputLeft.val(value1);
                     $tooltip1.html(value1);
+                    common.tooltip($tooltip1, $selector1);
                 }
             }
         });
@@ -487,6 +482,7 @@
                     // update input value with steps
                     $inputRight.val(value2);
                     $tooltip2.html(value2);
+                    common.tooltip($tooltip2, $selector2);
                 }
             }
         });
