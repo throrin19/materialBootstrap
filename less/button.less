@@ -1,5 +1,6 @@
 .raised{
   .z-depth-1;
+  display: inline-block;
   outline: none;
   background-color: @grey50;
   color: @grey800;
@@ -7,6 +8,8 @@
   font-size: 14px;
   border: 1px solid @grey50;
   text-decoration: none;
+  cursor: pointer;
+  vertical-align: middle;
   .border-top-radius(2px);
   .border-bottom-radius(2px);
   padding: 5px 20px;
@@ -24,6 +27,8 @@
   &:hover{
     background-color: @grey200;
     border-color: @grey200;
+    text-decoration: none;
+    color: inherit;
   }
 
   &:active{
@@ -96,6 +101,10 @@
   .buttons-colors(length(@colors), @colors, border-color);
 }
 
+a.raised{
+  padding-top: 7px;
+}
+
 .flat{
   outline: none;
   color: @grey800;
@@ -110,6 +119,8 @@
   text-transform: uppercase;
   margin: 5px 8px;
   height: 36px;
+  vertical-align: middle;
+  display: inline-block;
 
   i:first-of-type{
     float: left;
@@ -121,6 +132,8 @@
   &:hover{
     background-color: @grey200;
     border-color: @grey200;
+    text-decoration: none;
+    color: inherit;
   }
 
   &:active{
