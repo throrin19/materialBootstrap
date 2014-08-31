@@ -1,4 +1,4 @@
-.raised{
+.btn-raised{
   .z-depth-1;
   display: inline-block;
   outline: none;
@@ -101,11 +101,11 @@
   .buttons-colors(length(@colors), @colors, border-color);
 }
 
-a.raised{
+a.btn-raised{
   padding-top: 7px;
 }
 
-.flat{
+.btn-flat{
   outline: none;
   color: @grey800;
   background-color: transparent;
@@ -213,8 +213,8 @@ a.raised{
   .buttons-colors(length(@colors), @colors, border-color);
 }
 
-.floating-action{
-  .raised;
+.btn-floating-action{
+  .btn-raised;
   width: 56px;
   height: 56px;
   padding: 10px;
@@ -233,8 +233,8 @@ a.raised{
   }
 }
 
-.flat-other{
-  .flat;
+.btn-flat-other{
+  .btn-flat;
   .rounded-corners(50%);
   width: 56px;
   height: 56px;
