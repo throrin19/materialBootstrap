@@ -101,10 +101,6 @@
   .buttons-colors(length(@colors), @colors, border-color);
 }
 
-a.btn-raised{
-  padding-top: 7px;
-}
-
 .btn-flat{
   outline: none;
   color: @grey800;
@@ -215,6 +211,7 @@ a.btn-raised{
 
 .btn-floating-action{
   .btn-raised;
+  text-align: center;
   width: 56px;
   height: 56px;
   padding: 10px;
@@ -236,6 +233,7 @@ a.btn-raised{
 .btn-flat-other{
   .btn-flat;
   .rounded-corners(50%);
+  text-align: center;
   width: 56px;
   height: 56px;
   padding: 10px;
@@ -252,4 +250,8 @@ a.btn-raised{
     height: 40px;
     padding: 3px;
   }
+}
+
+a.btn-raised, a.btn-flat{
+  padding-top: 7px;
 }
