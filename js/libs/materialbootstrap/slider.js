@@ -46,7 +46,7 @@
                 value       : 0,
                 step        : 1,
                 showInput   : false,
-                onChange    : function (value) {},
+                onChange    : function () {},
                 color       : 'indigo',
                 dark        : false,
                 inputName   : '',
@@ -62,9 +62,9 @@
         return this.each(function () {
             opts.$element = $(this);
             if (opts.type === 'range') {
-                Range(opts);
+                range(opts);
             } else {
-                Slider(opts);
+                slider(opts);
             }
         });
     }
@@ -101,7 +101,7 @@
         }
     };
 
-    function Slider(opts) {
+    function slider(opts) {
         var color = opts.color;
         // controls on value
         if (!opts.value) {
@@ -242,7 +242,7 @@
                 // update input value with steps
                 $input.val(value);
                 $tooltip.html(value);
-                common.tooltip($tooltip, $selector)
+                common.tooltip($tooltip, $selector);
             }
         });
         $input.on('keyup', function () {
@@ -256,7 +256,7 @@
         });
     }
 
-    function Range(opts) {
+    function range(opts) {
         opts = $.extend({}, opts, roundValues(opts.value1, opts.value2));
 
         var color           = opts.color,
