@@ -20,7 +20,6 @@
         var $parent  = getParent($this);
         var isActive = $parent.hasClass('open');
         var $ul      = $parent.find('.dropdown-menu');
-        var height   = $ul.height();
 
         clearMenus();
 
@@ -37,24 +36,10 @@
 
             $this.trigger('focus');
 
-            $ul.css({
-                display : 'block',
-                opacity : 0,
-                height : '45px',
-                overflow : 'hidden'
-            });
-            $ul.animate({
-                opacity : 1
-            }, 100, function () {
-                $ul.animate({
-                    height : height + 'px'
-                }, 400, function () {
-                    $ul.removeAttr('style');
-
-                    $parent
-                        .toggleClass('open')
-                        .trigger('shown.bs.dropdown', relatedTarget)
-                });
+            animations.openSelectMenu($ul, function () {
+                $parent
+                    .toggleClass('open')
+                    .trigger('shown.bs.dropdown', relatedTarget)
             });
         }
 
@@ -118,6 +103,29 @@
 
         return $parent && $parent.length ? $parent : $this.parent()
     }
+
+    var animations = {
+        openSelectMenu : function openSelectMenu($ul, callback) {
+            var height   = $ul.height();
+
+            $ul.css({
+                display : 'block',
+                opacity : 0,
+                height : '45px',
+                overflow : 'hidden'
+            });
+            $ul.animate({
+                opacity : 1
+            }, 100, function () {
+                $ul.animate({
+                    height: height + 'px'
+                }, 400, function () {
+                    $ul.removeAttr('style');
+                    callback();
+                });
+            });
+        }
+    };
 
 
     // DROPDOWN PLUGIN DEFINITION
