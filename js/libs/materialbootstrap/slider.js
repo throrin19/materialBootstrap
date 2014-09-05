@@ -16,6 +16,8 @@
  * @param {boolean}     [options.disabled]      True : slider is disable
  */
 (function ($){
+    'use strict';
+
     var materialColors = {
         red : '#e51c23',
         pink : '#e91e63',

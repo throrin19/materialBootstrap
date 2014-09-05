@@ -2,6 +2,8 @@
  * Material Input function to add floating label and input-group color focus
  */
 (function ($){
+    'use strict';
+
     var colorNames  = [ 'red', 'pink', 'purple', 'dpurple', 'indigo', 'blue', 'lblue', 'cyan', 'teal', 'green', 'lgreen', 'lime', 'yellow', 'amber', 'orange', 'dorange', 'brown', 'grey', 'bgrey'],
         colorValues = [ '#e51c23', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#5677fc', '#03a9f4', '#00bcd4', '#009688', '#259b24', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b' ];
     
