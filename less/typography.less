@@ -22,3 +22,29 @@ h1, h2, h3, h4, h5, h6{
 .lead{
   font-family: "robotothin";
 }
+
+fieldset.subheader {
+  border: none;
+  padding: 0;
+  margin-top: 5px;
+
+  legend {
+    font-family: "robotomedium";
+    position: relative;
+    display: block;
+    border-bottom: none;
+    border-top: 1px solid @grey300;
+    color: @grey500;
+    margin-bottom: 20px;
+    font-size: 14px;
+    padding-top: 10px;
+
+    &.list {
+      margin-left: 72px;
+    }
+
+    &.grid {
+      border: none;
+    }
+  }
+}
