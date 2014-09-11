@@ -18,6 +18,27 @@
     .ellipsis;
     text-decoration: none;
     line-height: 43px;
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -ms-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: @blue50;
+    }
+
+    &.selected {
+      background-color: @blue;
+      color : @grey2000;
+      cursor: default;
+    }
+
+    &.disabled {
+      cursor: default;
+      background-color: @grey400;
+      color: @grey600;
+    }
   }
 
   li.divider {

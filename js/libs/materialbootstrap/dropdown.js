@@ -115,7 +115,7 @@
                 if (e.isDefaultPrevented()) return;
                 $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
             });
-        })
+        });
     }
 
 
@@ -167,7 +167,7 @@
                     params.$ul.removeAttr('style');
                     callback();
                 });
-            })
+            });
         }
     };
 
@@ -184,7 +184,6 @@
     }
 
     function selectItem(evt, params) {
-        console.log('selectItem');
         var $a = $(evt.currentTarget),
             $this = params.$this,
             $ul = params.$ul,
@@ -193,9 +192,11 @@
 
         if ($ul.attr('role') != 'select') return;
         if ($a.hasClass('disabled')) return;
+        if ($a.hasClass('selected')) return;
 
         evt.preventDefault();
 
+        $ul.find('li a').removeClass('selected');
         $a.addClass('selected');
         $input.val($a.data('value'));
         $this.find('.name').html($a.html());
