@@ -9,9 +9,9 @@
 <body>
     <div style="padding: 10px">
         <!-- standard dropdown -->
-        <div class="material-dropdown">
+        <div class="material-dropdown" style="display: inline-block;">
             <button class="btn-raised dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                Dropdown
+                <span class="name">Dropdown</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -20,6 +20,19 @@
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
                 <li role="presentation" class="divider"></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <div class="material-dropdown" style="display: inline-block;">
+            <button class="btn-raised dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                <span class="name">Choose Element</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="select" aria-labelledby="dropdownMenu2">
+                <li role="presentation"><a role="menuitem" href="#" data-value="1">Item 1</a></li>
+                <li role="presentation"><a role="menuitem" href="#" data-value="2">Item 2</a></li>
+                <li role="presentation"><a role="menuitem" href="#" data-value="3">Item 3</a></li>
+                <li role="presentation"><a role="menuitem" href="#" data-value="4">Item 4</a></li>
+                <li role="presentation"><a role="menuitem" href="#" data-value="5">Item 5</a></li>
             </ul>
         </div>
     </div>
