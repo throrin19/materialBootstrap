@@ -172,7 +172,7 @@
     };
 
     function initSelectMenu(params) {
-        if (params.$ul.find('li.header').length === 0 && params.$ul.data('header') != 'false') {
+        if (params.$ul.find('li.header').length === 0 && params.$ul.data('header') !== false) {
             // add header selected
             var $liSelected = $('<li class="header"><a role="menuitem" href="#">'+ params.$button.find('.name').html() +'</a></li>');
             params.$ul.prepend('<li role="presentation" class="divider"></li>');
