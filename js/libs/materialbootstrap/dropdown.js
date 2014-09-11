@@ -36,7 +36,10 @@
 
             $this.trigger('focus');
 
-            animations.openSelectMenu($ul, function () {
+            animations.openSelectMenu({
+                $ul : $ul,
+                $button : $this
+            }, function () {
                 $parent
                     .toggleClass('open')
                     .trigger('shown.bs.dropdown', relatedTarget)
@@ -82,12 +85,18 @@
         if (e && e.which === 3) return;
         $(backdrop).remove();
         $(toggle).each(function () {
-            var $parent = getParent($(this));
-            var relatedTarget = { relatedTarget: this };
+            var $parent         = getParent($(this));
+            var relatedTarget   = { relatedTarget: this };
+            var $ul             = $parent.find('.dropdown-menu');
             if (!$parent.hasClass('open')) return;
             $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget));
-            if (e.isDefaultPrevented()) return;
-            $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+            animations.closeSelectMenu({
+                $ul : $ul,
+                $button : $(this)
+            }, function () {
+                if (e.isDefaultPrevented()) return;
+                $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+            });
         })
     }
 
@@ -105,25 +114,41 @@
     }
 
     var animations = {
-        openSelectMenu : function openSelectMenu($ul, callback) {
-            var height   = $ul.height();
+        openSelectMenu : function openSelectMenu(params, callback) {
+            var height   = params.$ul.height(),
+                minWidth = params.$button.outerWidth(true);
 
-            $ul.css({
+            params.$ul.css({
                 display : 'block',
                 opacity : 0,
                 height : '45px',
-                overflow : 'hidden'
+                overflow : 'hidden',
+                'min-width' : minWidth + 'px'
             });
-            $ul.animate({
+            params.$ul.animate({
                 opacity : 1
             }, 100, function () {
-                $ul.animate({
+                params.$ul.animate({
                     height: height + 'px'
                 }, 400, function () {
-                    $ul.removeAttr('style');
+                    params.$ul.removeAttr('style');
+                    params.$ul.css('min-width', minWidth + 'px');
                     callback();
                 });
             });
+        },
+        closeSelectMenu : function closeSelectMenu(params, callback) {
+            params.$ul.css('overflow', 'hidden');
+            params.$ul.animate({
+                height : '45px'
+            }, 400, function () {
+                params.$ul.animate({
+                    opacity : 0
+                }, 100, function () {
+                    params.$ul.removeAttr('style');
+                    callback();
+                });
+            })
         }
     };
 
