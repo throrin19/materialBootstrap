@@ -166,7 +166,11 @@
 
         common.tooltip($tooltip, $selector);
 
-        $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
+        if (!opts.icon || opts.icon.length === 0) {
+            $selector.css('top', (($slider.height()/2) - ($selector.height()/2) + 2) + 'px');
+        } else {
+            $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
+        }
 
         // coonvert functions
         function valueToPosition(value) {
@@ -334,6 +338,12 @@
             'border-color'      : materialColors[color],
             'background-color'  : materialColors[color]
         });
+
+        if (!opts.icon || opts.icon.length === 0) {
+            $selector1.css('top', (($slider.height()/2) - ($selector1.height()/2) + 2) + 'px');
+            $selector2.css('top', (($slider.height()/2) - ($selector2.height()/2) + 2) + 'px');
+        }
+
         valuesToPosition(opts);
 
         common.tooltip($tooltip1, $selector1);
