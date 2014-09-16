@@ -141,8 +141,8 @@
             width -= 59;
         }
         if (opts.showInput === true) {
-            width = width - originalWidth*0.10;
-            $input.css('width', originalWidth*0.10);
+            width = width - 55;
+            $input.css('width', 55);
         }
 
         $element.addClass('material-slider ' + color);
@@ -167,7 +167,7 @@
         common.tooltip($tooltip, $selector);
 
         if (!opts.icon || opts.icon.length === 0) {
-            $selector.css('top', (($slider.height()/2) - ($selector.height()/2) + 2) + 'px');
+            $selector.css('top', ($bar.position().top - 5) + 'px');
         } else {
             $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
         }
@@ -300,9 +300,9 @@
             width -= 59;
         }
         if (opts.showInput === true) {
-            width = width - (originalWidth*0.10)*2;
-            $inputLeft.css('width', originalWidth*0.10);
-            $inputRight.css('width', originalWidth*0.10);
+            width = width - 110;
+            $inputLeft.css('width', 55);
+            $inputRight.css('width', 55);
         }
 
         $element.addClass('material-slider range ' + color);
@@ -340,8 +340,8 @@
         });
 
         if (!opts.icon || opts.icon.length === 0) {
-            $selector1.css('top', (($slider.height()/2) - ($selector1.height()/2) + 2) + 'px');
-            $selector2.css('top', (($slider.height()/2) - ($selector2.height()/2) + 2) + 'px');
+            $selector1.css('top', ($bar.position().top - 5) + 'px');
+            $selector2.css('top', ($bar.position().top - 5) + 'px');
         }
 
         valuesToPosition(opts);
