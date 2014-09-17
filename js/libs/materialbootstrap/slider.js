@@ -175,8 +175,8 @@
                 $(document).one('mouseup', function () {
                     if (this.pressed === true) {
                         // launch event and set value and placement with step
-                        this.opts.onChange(value);
-                        this.valueToPosition(value);
+                        this.opts.onChange(this.value);
+                        this.valueToPosition(this.value);
                     }
                     this.pressed = false;
                     this.$focus.css('display', 'none');
@@ -190,10 +190,10 @@
                         this.prevX = e.pageX;
                         this.left  = +this.$selector.css('left').replace('px', '');
                     }
-                    this.decal = (e.pageX - this.prevX)+left;
+                    this.decal = (e.pageX - this.prevX)+this.left;
 
                     if (this.decal < 5) {
-                        this.decal = opts.min;
+                        this.decal = this.opts.min;
                     }
                     if (this.decal > this.$bar.width()) {
                         this.decal = this.$bar.width();
@@ -204,12 +204,12 @@
 
                     // calculate value
                     this.percent = Math.round((this.$progress.width()/this.$bar.width())*100)/100;
-                    this.value   = opts.min + this.percent*(opts.max-this.valueRange);
+                    this.value   = this.opts.min + this.percent*(this.opts.max-this.valueRange);
 
-                    this.value = common.roundValue(value, opts);
+                    this.value = common.roundValue(this.value, this.opts);
                     // update input value with steps
-                    this.$input.val(value);
-                    this.$tooltip.html(value);
+                    this.$input.val(this.value);
+                    this.$tooltip.html(this.value);
                     common.tooltip(this.$tooltip, this.$selector);
                 }
             }.bind(this));
