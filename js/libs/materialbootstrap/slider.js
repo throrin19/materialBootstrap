@@ -131,6 +131,7 @@
             prevX           = 0,
             left            = 0,
             decal           = 0,
+            visible         = $element.is(':visible'),
             value           = opts.value,
             valueRange      = opts.max - opts.min === opts.max ? 0 : opts.max - opts.min,
             percent         = 0;
@@ -263,12 +264,17 @@
             valueToPosition(value);
             $input.val(value);
         });
-        $(document).bind('DOMAttrModified', function(e){
-            resizeSlider();
-        });
         $(window).resize(function () {
             resizeSlider();
         });
+        var interval = setInterval(function () {
+            var nextVisible = $element.is(':visible');
+            if (visible !== nextVisible && visible === false) {
+                visible = true;
+                resizeSlider();
+                clearInterval(interval);
+            }
+        }, 200);
     }
 
     function range(opts) {
