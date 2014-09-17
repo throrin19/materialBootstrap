@@ -188,6 +188,7 @@
             var originalWidth   = $element.width(),
                 width           = originalWidth;
 
+            console.log($element.width());
             if (opts.icon && opts.icon.length > 0) {
                 width -= 59;
             }
@@ -267,12 +268,11 @@
         $(window).resize(function () {
             resizeSlider();
         });
-        var interval = setInterval(function () {
+        setInterval(function () {
             var nextVisible = $element.is(':visible');
             if (visible !== nextVisible && visible === false) {
                 visible = true;
                 resizeSlider();
-                clearInterval(interval);
             }
         }, 500);
     }
