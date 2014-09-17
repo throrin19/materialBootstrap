@@ -127,8 +127,6 @@
             $bar            = $slider.find('.slider-bar'),
             $progress       = $slider.find('.slider-bar-colored'),
             $tooltip        = $selector.find('.tooltip'),
-            originalWidth   = $element.width(),
-            width           = originalWidth,
             pressed         = false,
             prevX           = 0,
             left            = 0,
@@ -137,24 +135,12 @@
             valueRange      = opts.max - opts.min === opts.max ? 0 : opts.max - opts.min,
             percent         = 0;
 
-        if (opts.icon && opts.icon.length > 0) {
-            width -= 59;
-        }
-        if (opts.showInput === true) {
-            width = width - 55;
-            $input.css('width', 55);
-        }
-
         $element.addClass('material-slider ' + color);
 
         if (opts.disabled === true) {
             $element.addClass('disabled');
             $input.attr('disabled', 'disabled');
         }
-
-        $slider.css({
-            width : width
-        });
 
         if (opts.icon && opts.icon.length > 0) {
             $element.append($icon);
@@ -165,12 +151,9 @@
         }
 
         common.tooltip($tooltip, $selector);
-
-        if (!opts.icon || opts.icon.length === 0) {
-            $selector.css('top', ($bar.position().top - 5) + 'px');
-        } else {
-            $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
-        }
+        resizeSlider();
+        // init value
+        valueToPosition(opts.value);
 
         // coonvert functions
         function valueToPosition(value) {
@@ -198,10 +181,30 @@
             }
             $tooltip.html(value);
             common.tooltip($tooltip, $selector);
+            opts.value = value;
+        }
+        function resizeSlider() {
+            var originalWidth   = $element.width(),
+                width           = originalWidth;
+
+            if (opts.icon && opts.icon.length > 0) {
+                width -= 59;
+            }
+            if (opts.showInput === true) {
+                width = width - 55;
+                $input.css('width', 55);
+            }
+            $slider.css({
+                width : width
+            });
+            if (!opts.icon || opts.icon.length === 0) {
+                $selector.css('top', ($bar.position().top - 5) + 'px');
+            } else {
+                $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
+            }
+            valueToPosition(opts.value);
         }
 
-        // init value
-        valueToPosition(opts.value);
 
         // events
         $selector.bind('mousedown', function () {
@@ -210,15 +213,15 @@
             if (opts.disabled !== true) {
                 $focus.css('display', 'block');
             }
-        });
-        $(document).bind('mouseup', function () {
-            if (pressed === true) {
-                // launch event and set value and placement with step
-                opts.onChange(value);
-                valueToPosition(value);
-            }
-            pressed = false;
-            $focus.css('display', 'none');
+            $(document).one('mouseup', function () {
+                if (pressed === true) {
+                    // launch event and set value and placement with step
+                    opts.onChange(value);
+                    valueToPosition(value);
+                }
+                pressed = false;
+                $focus.css('display', 'none');
+            });
         });
         $selector.bind('mousemove', function (e) {
             e.preventDefault();
@@ -259,6 +262,12 @@
             value = common.roundValue($input.val(), opts);
             valueToPosition(value);
             $input.val(value);
+        });
+        $(document).bind('DOMAttrModified', function(e){
+            resizeSlider();
+        });
+        $(window).resize(function () {
+            resizeSlider();
         });
     }
 
