@@ -66,7 +66,7 @@
             if (opts.type === 'range') {
                 range(opts);
             } else {
-                slider(opts);
+                slider.init(opts);
             }
         });
     }
@@ -103,178 +103,178 @@
         }
     };
 
-    function slider(opts) {
-        var color = opts.color;
-        // controls on value
-        if (!opts.value) {
-            opts.value = opts.min;
-        }
-        opts.value = common.roundValue(opts.value, opts);
+    var slider = {
+        init : function(opts) {
+            var color = opts.color;
+            // controls on value
+            if (!opts.value) {
+                opts.value = opts.min;
+            }
+            opts.value = common.roundValue(opts.value, opts);
 
-        if (!materialColors[opts.color]) {
-            opts.color = 'indigo';
-        }
-        if (opts.dark === true) {
-            color += ' dark';
-        }
+            if (!materialColors[opts.color]) {
+                opts.color = 'indigo';
+            }
+            if (opts.dark === true) {
+                color += ' dark';
+            }
 
-        var $element        = opts.$element,
-            $input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ color +'" />'),
-            $icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>'),
-            $slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>'),
-            $selector       = $slider.find('.selector'),
-            $focus          = $selector.find('.focus'),
-            $bar            = $slider.find('.slider-bar'),
-            $progress       = $slider.find('.slider-bar-colored'),
-            $tooltip        = $selector.find('.tooltip'),
-            pressed         = false,
-            prevX           = 0,
-            left            = 0,
-            decal           = 0,
-            visible         = $element.is(':visible'),
-            value           = opts.value,
-            valueRange      = opts.max - opts.min === opts.max ? 0 : opts.max - opts.min,
-            percent         = 0;
+            this.$element        = opts.$element;
+            this.$input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ color +'" />');
+            this.$icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>');
+            this.$slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>');
+            this.$selector       = this.$slider.find('.selector');
+            this.$focus          = this.$selector.find('.focus');
+            this.$bar            = this.$slider.find('.slider-bar');
+            this.$progress       = this.$slider.find('.slider-bar-colored');
+            this.$tooltip        = this.$selector.find('.tooltip');
+            this.pressed         = false;
+            this.prevX           = 0;
+            this.left            = 0;
+            this.decal           = 0;
+            this.visible         = this.$element.is(':visible');
+            this.value           = opts.value;
+            this.valueRange      = opts.max - opts.min === opts.max ? 0 : opts.max - opts.min;
+            this.percent         = 0;
+            this.opts            = opts;
 
-        $element.addClass('material-slider ' + color);
+            this.$element.addClass('material-slider ' + color);
 
-        if (opts.disabled === true) {
-            $element.addClass('disabled');
-            $input.attr('disabled', 'disabled');
-        }
+            if (opts.disabled === true) {
+                this.$element.addClass('disabled');
+                this.$input.attr('disabled', 'disabled');
+            }
 
-        if (opts.icon && opts.icon.length > 0) {
-            $element.append($icon);
-        }
-        $element.append($slider);
-        if (opts.showInput === true) {
-            $element.append($input);
-        }
+            if (opts.icon && opts.icon.length > 0) {
+                this.$element.append(this.$icon);
+            }
+            this.$element.append(this.$slider);
+            if (opts.showInput === true) {
+                this.$element.append(this.$input);
+            }
 
-        common.tooltip($tooltip, $selector);
-        resizeSlider();
-        // init value
-        valueToPosition(opts.value);
+            common.tooltip(this.$tooltip, this.$selector);
+            this.resizeSlider();
+            // init value
+            this.valueToPosition(opts.value);
+        },
+        events : function() {
+            this.$selector.bind('mousedown', function () {
+                this.pressed = true;
+                this.prevX   = 0;
+                if (this.opts.disabled !== true) {
+                    this.$focus.css('display', 'block');
+                }
+                $(document).one('mouseup', function () {
+                    if (this.pressed === true) {
+                        // launch event and set value and placement with step
+                        this.opts.onChange(value);
+                        this.valueToPosition(value);
+                    }
+                    this.pressed = false;
+                    this.$focus.css('display', 'none');
+                }.bind(this));
+            }.bind(this));
+            this.$selector.bind('mousemove', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (this.pressed === true && this.opts.disabled !== true) {
+                    if (this.prevX == 0) {
+                        this.prevX = e.pageX;
+                        this.left  = +this.$selector.css('left').replace('px', '');
+                    }
+                    this.decal = (e.pageX - this.prevX)+left;
 
-        // coonvert functions
-        function valueToPosition(value) {
-            var min   = opts.min > 0 ? opts.min : opts.max,
-                decal = ((value-opts.min)/opts.max)*(opts.max/min),
-                left  = ($bar.width()*decal) + 5;
+                    if (this.decal < 5) {
+                        this.decal = opts.min;
+                    }
+                    if (this.decal > this.$bar.width()) {
+                        this.decal = this.$bar.width();
+                    }
 
-            if (left >= $bar.width()) {
+                    this.$selector.css('left', this.decal);
+                    this.$progress.css('width', this.decal);
+
+                    // calculate value
+                    this.percent = Math.round((this.$progress.width()/this.$bar.width())*100)/100;
+                    this.value   = opts.min + this.percent*(opts.max-this.valueRange);
+
+                    this.value = common.roundValue(value, opts);
+                    // update input value with steps
+                    this.$input.val(value);
+                    this.$tooltip.html(value);
+                    common.tooltip(this.$tooltip, this.$selector);
+                }
+            }.bind(this));
+            this.$input.on('keyup', function () {
+                this.value = common.roundValue(this.$input.val(), this.opts);
+                this.valueToPosition(value);
+            }.bind(this));
+            this.$input.on('change', function () {
+                this.value = common.roundValue(this.$input.val(), this.opts);
+                this.valueToPosition(this.value);
+                this.$input.val(this.value);
+            }.bind(this));
+            $(window).resize(function () {
+                this.resizeSlider();
+            }.bind(this));
+            setInterval(function () {
+                var nextVisible = this.$element.is(':visible');
+                if (this.visible !== nextVisible && this.visible === false) {
+                    this.visible = true;
+                    this.resizeSlider();
+                }
+            }.bind(this), 500);
+        },
+        valueToPosition : function valueToPosition(value) {
+            var min   = this.opts.min > 0 ? this.opts.min : this.opts.max,
+                decal = ((value-this.opts.min)/this.opts.max)*(this.opts.max/min),
+                left  = (this.$bar.width()*decal) + 5;
+
+            if (left >= this.$bar.width()) {
                 left = left - 5;
             }
 
-            $progress.css('width',(decal*100)+'%');
-            $selector.css('left', left + 'px');
+            this.$progress.css('width',(decal*100)+'%');
+            this.$selector.css('left', left + 'px');
 
             if (left > 5) {
-                $selector.css({
-                    'border-color' : materialColors[opts.color],
-                    'background-color' : materialColors[opts.color]
+                this.$selector.css({
+                    'border-color' : materialColors[this.opts.color],
+                    'background-color' : materialColors[this.opts.color]
                 });
             } else {
-                $selector.css({
+                this.$selector.css({
                     'border-color' : '',
                     'background-color' : ''
                 });
             }
-            $tooltip.html(value);
-            common.tooltip($tooltip, $selector);
-            opts.value = value;
-        }
-        function resizeSlider() {
-            var originalWidth   = $element.width(),
+            this.$tooltip.html(value);
+            common.tooltip(this.$tooltip, this.$selector);
+            this.value = value;
+        },
+        resizeSlider : function resizeSlider() {
+            var originalWidth   = this.$element.width(),
                 width           = originalWidth;
 
-            if (opts.icon && opts.icon.length > 0) {
+            if (this.opts.icon && this.opts.icon.length > 0) {
                 width -= 59;
             }
-            if (opts.showInput === true) {
+            if (this.opts.showInput === true) {
                 width = width - 55;
-                $input.css('width', 55);
+                this.$input.css('width', 55);
             }
-            $slider.css({
+            this.$slider.css({
                 width : width
             });
-            if (!opts.icon || opts.icon.length === 0) {
-                $selector.css('top', ($bar.position().top - 5) + 'px');
+            if (!this.opts.icon || this.opts.icon.length === 0) {
+                this.$selector.css('top', (this.$bar.position().top - 5) + 'px');
             } else {
-                $selector.css('top', (($slider.height()/2) - ($selector.height()/2) - 2) + 'px');
+                this.$selector.css('top', ((this.$slider.height()/2) - (this.$selector.height()/2) - 2) + 'px');
             }
-            valueToPosition(opts.value);
+            this.valueToPosition(this.value);
         }
-
-
-        // events
-        $selector.bind('mousedown', function () {
-            pressed = true;
-            prevX   = 0;
-            if (opts.disabled !== true) {
-                $focus.css('display', 'block');
-            }
-            $(document).one('mouseup', function () {
-                if (pressed === true) {
-                    // launch event and set value and placement with step
-                    opts.onChange(value);
-                    valueToPosition(value);
-                }
-                pressed = false;
-                $focus.css('display', 'none');
-            });
-        });
-        $selector.bind('mousemove', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (pressed === true && opts.disabled !== true) {
-                if (prevX == 0) {
-                    prevX = e.pageX;
-                    left  = +$selector.css('left').replace('px', '');
-                }
-                decal = (e.pageX - prevX)+left;
-
-                if (decal < 5) {
-                    decal = opts.min;
-                }
-                if (decal > $bar.width()) {
-                    decal = $bar.width();
-                }
-
-                $selector.css('left', decal);
-                $progress.css('width', decal);
-
-                // calculate value
-                percent = Math.round(($progress.width()/$bar.width())*100)/100;
-                value   = opts.min + percent*(opts.max-valueRange);
-
-                value = common.roundValue(value, opts);
-                // update input value with steps
-                $input.val(value);
-                $tooltip.html(value);
-                common.tooltip($tooltip, $selector);
-            }
-        });
-        $input.on('keyup', function () {
-            value = common.roundValue($input.val(), opts);
-            valueToPosition(value);
-        });
-        $input.on('change', function () {
-            value = common.roundValue($input.val(), opts);
-            valueToPosition(value);
-            $input.val(value);
-        });
-        $(window).resize(function () {
-            resizeSlider();
-        });
-        setInterval(function () {
-            var nextVisible = $element.is(':visible');
-            if (visible !== nextVisible && visible === false) {
-                visible = true;
-                resizeSlider();
-            }
-        }, 500);
-    }
+    };
 
     function range(opts) {
         opts = $.extend({}, opts, roundValues(opts.value1, opts.value2));
