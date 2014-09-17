@@ -49,6 +49,7 @@
                 step        : 1,
                 showInput   : false,
                 onChange    : function () {},
+                onSlide     : function () {},
                 color       : 'indigo',
                 dark        : false,
                 inputName   : '',
@@ -211,6 +212,7 @@
                     this.$input.val(this.value);
                     this.$tooltip.html(this.value);
                     common.tooltip(this.$tooltip, this.$selector);
+                    this.opts.onSlide(this.value);
                 }
             }.bind(this));
             this.$input.on('keyup', function () {
@@ -282,7 +284,6 @@
 
     function Range() {
         this.init = function init(opts) {
-            console.log(opts);
             opts = $.extend({}, opts, this.roundValues(opts.value1, opts.value2, opts));
 
             if (!materialColors[opts.color]) {
@@ -398,6 +399,7 @@
                         this.$inputLeft.val(this.value1);
                         this.$tooltip1.html(this.value1);
                         common.tooltip(this.$tooltip1, this.$selector1);
+                        this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
                     }
                 }
             }.bind(this));
@@ -435,6 +437,7 @@
                         this.$inputRight.val(this.value2);
                         this.$tooltip2.html(this.value2);
                         common.tooltip(this.$tooltip2, this.$selector2);
+                        this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
                     }
                 }
             }.bind(this));
@@ -540,7 +543,6 @@
             var originalWidth   = this.$element.width(),
                 width           = originalWidth;
 
-            console.log(this.$element);
             // placement
             if (this.opts.icon && this.opts.icon.length > 0) {
                 width -= 59;
