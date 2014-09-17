@@ -274,7 +274,7 @@
                 resizeSlider();
                 clearInterval(interval);
             }
-        }, 200);
+        }, 500);
     }
 
     function range(opts) {
