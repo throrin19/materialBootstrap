@@ -1,0 +1,133 @@
+.material-nav {
+  margin-bottom: 0;
+  padding-left: 0; // Override default ul/ol
+  list-style: none;
+  &:extend(.clearfix all);
+
+  > li {
+    position: relative;
+    display: block;
+
+    > a {
+      position: relative;
+      display: block;
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        background-color: @nav-link-hover-bg;
+      }
+    }
+
+    // Disabled state sets text to gray and nukes hover/tab effects
+    &.disabled > a {
+      color: @nav-disabled-link-color;
+
+      &:hover,
+      &:focus {
+        color: @nav-disabled-link-hover-color;
+        text-decoration: none;
+        background-color: transparent;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // Open dropdowns
+  .open > a {
+    &,
+    &:hover,
+    &:focus {
+      background-color: @nav-link-hover-bg;
+      border-color: @link-color;
+    }
+  }
+
+  // Prevent IE8 from misplacing imgs
+  //
+  // See https://github.com/h5bp/html5-boilerplate/issues/984#issuecomment-3985989
+  > li > a > img {
+    max-width: none;
+  }
+}
+
+// Tabs
+// -------------------------
+
+// Give the tabs something to sit on
+.nav-tabs {
+  height: 48px;
+  background-color: @tab-bckg-color;
+  position: relative;
+
+  div.selected{
+    position: absolute;
+    min-width: 95px;
+    background-color: @tab-selector;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+  }
+
+  > li {
+    float: left;
+    height: 100%;
+
+    // Actual tabs (as links)
+    > a {
+      font-family: "robotomedium";
+      text-transform: uppercase;
+      height: 100%;
+      padding: 0 5px;
+      line-height: 48px;
+      color : @tab-txt-color;
+      min-width: 95px;
+      text-align: center;
+      transition : background-color 0.3s;
+      opacity: 0.6;
+      &:active, &:link, &:visited {
+        background-color: transparent;
+      }
+      &:hover {
+        background-color: @tab-bckg-hover;
+        opacity : 1;
+      }
+    }
+
+    // Active state, and its :hover to override normal :hover
+    &.active > a {
+      opacity: 1;
+      color : @tab-txt-selected;
+    }
+  }
+  // pulling this in mainly for less shorthand
+  &.nav-justified {
+    .nav-justified();
+    .nav-tabs-justified();
+  }
+
+  .nav-tabs-colors(@index, @colors) when (@index > 0) {
+    .nav-tabs-colors(@index - 1, @colors);
+    @color : e(extract(@colors, @index));
+    &[data-border=@{color}] {
+      div.selected{
+        background-color: @@color;
+      }
+    }
+    &[data-background=@{color}] {
+      background-color: @@color;
+      > li > a {
+        color: contrast(@@color, @grey900, @grey50);
+        &:hover {
+          @c : "@{color}400";
+          background-color: @@c;
+        }
+      }
+    }
+    &[data-color=@{color}] {
+      > li.active > a {
+        color : @@color;
+      }
+    }
+  }
+  .nav-tabs-colors(length(@colors), @colors);
+}
