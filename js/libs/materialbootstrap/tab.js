@@ -134,7 +134,7 @@
 
     // Refresh selected bar placement (see to optimize this part later)
     setInterval(function () {
-        $(document).find('.material-nav.nav-tabs').each(function () {
+        $(document).find('.material-nav.nav-tabs, .material-nav .nav-tabs').each(function () {
             setSelectedBarPosition($(this).find('li.active'), $(this));
         });
     }, 300);

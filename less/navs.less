@@ -1,52 +1,61 @@
 .material-nav {
-  margin-bottom: 0;
-  padding-left: 0; // Override default ul/ol
-  list-style: none;
-  &:extend(.clearfix all);
 
-  > li {
-    position: relative;
-    display: block;
+  .nav {
+    margin-bottom: 0;
+    padding-left: 0; // Override default ul/ol
+    list-style: none;
+    &:extend(.clearfix all);
 
-    > a {
+    > li {
       position: relative;
       display: block;
+
+      > a {
+        position: relative;
+        display: block;
+        &:hover,
+        &:focus {
+          text-decoration: none;
+          background-color: @nav-link-hover-bg;
+        }
+      }
+
+      // Disabled state sets text to gray and nukes hover/tab effects
+      &.disabled > a {
+        color: @nav-disabled-link-color;
+
+        &:hover,
+        &:focus {
+          color: @nav-disabled-link-hover-color;
+          text-decoration: none;
+          background-color: transparent;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    // Open dropdowns
+    .open > a {
+      &,
       &:hover,
       &:focus {
-        text-decoration: none;
         background-color: @nav-link-hover-bg;
+        border-color: @link-color;
       }
     }
 
-    // Disabled state sets text to gray and nukes hover/tab effects
-    &.disabled > a {
-      color: @nav-disabled-link-color;
-
-      &:hover,
-      &:focus {
-        color: @nav-disabled-link-hover-color;
-        text-decoration: none;
-        background-color: transparent;
-        cursor: not-allowed;
-      }
+    // Prevent IE8 from misplacing imgs
+    //
+    // See https://github.com/h5bp/html5-boilerplate/issues/984#issuecomment-3985989
+    > li > a > img {
+      max-width: none;
     }
   }
 
-  // Open dropdowns
-  .open > a {
-    &,
-    &:hover,
-    &:focus {
-      background-color: @nav-link-hover-bg;
-      border-color: @link-color;
+  > .nav-content {
+    > .nav {
+      width: 5000px;
     }
-  }
-
-  // Prevent IE8 from misplacing imgs
-  //
-  // See https://github.com/h5bp/html5-boilerplate/issues/984#issuecomment-3985989
-  > li > a > img {
-    max-width: none;
   }
 }
 
@@ -54,7 +63,7 @@
 // -------------------------
 
 // Give the tabs something to sit on
-.nav-tabs {
+.material-nav .nav-tabs {
   height: 48px;
   background-color: @tab-bckg-color;
   position: relative;
@@ -74,6 +83,7 @@
 
     // Actual tabs (as links)
     > a {
+      cursor: pointer;
       font-family: "robotomedium";
       text-transform: uppercase;
       height: 100%;
