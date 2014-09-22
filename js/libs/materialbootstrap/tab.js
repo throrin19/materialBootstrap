@@ -156,8 +156,37 @@
         }
     }
 
+    function checkPreviousTab(params) {
+        if (parseInt(params.$ul.css('left')) || 0 < 0) {
+            params.$prevTabButton.show();
+        } else {
+            params.$prevTabButton.hide();
+        }
+    }
+
+    function navigateToPreviousTab(params) {
+        var $finalLi,
+            testLeft    = -Infinity,
+            left        = parseInt(params.$ul.css('left')) || 0;
+        params.$ul.find('> li').each(function () {
+            var $li     = $(this);
+
+            if ($li.position().left + left <= 0 && $li.position().left > testLeft) {
+                $finalLi = $li;
+                testLeft = $li.position().left;
+            }
+        });
+
+        if ($finalLi) {
+            params.$ul.animate({
+                left : $finalLi.position().left + left
+            }, 200);
+        }
+    }
+
     function initScrollTab(params) {
         checkNextTab(params);
+        checkPreviousTab(params);
     }
 
     var old = $.fn.tab;
@@ -183,21 +212,14 @@
             var $container      = $(this),
                 $content        = $(this).find('.nav-content'),
                 $ul             = $(this).find('.nav-tabs'),
-                $nextTabButton  = $(this).find('.nav-scroll-right > a');
+                $nextTabButton  = $(this).find('.nav-scroll-right > a'),
+                $prevTabButton  = $(this).find('.nav-scroll-left > a');
             initScrollTab({
                 $container      : $container,
                 $content        : $content,
                 $ul             : $ul,
-                $nextTabButton  : $nextTabButton
-            });
-
-            $nextTabButton.off('click').one('click', function (evt) {
-                navigateToNextTab({
-                    $container      : $container,
-                    $content        : $content,
-                    $ul             : $ul,
-                    $nextTabButton  : $nextTabButton
-                });
+                $nextTabButton  : $nextTabButton,
+                $prevTabButton  : $prevTabButton
             });
         })
     }, 500);
@@ -207,6 +229,24 @@
     $(document).on('click.bs.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
         e.preventDefault();
         Plugin.call($(this), 'show')
-    })
+    });
+    $(document).on('click.bs.tab.scroll.next', '.material-nav[role="scroll"] .nav-scroll-right > a', function (e) {
+        var $container      = $(this).parents('.material-nav');
+        navigateToNextTab({
+            $container      : $container,
+            $content        : $container.find('.nav-content'),
+            $ul             : $container.find('.nav-tabs'),
+            $nextTabButton  :  $(this)
+        });
+    });
+    $(document).on('click.bs.tab.scroll.previous', '.material-nav[role="scroll"] .nav-scroll-left > a', function (e) {
+        var $container      = $(this).parents('.material-nav');
+        navigateToPreviousTab({
+            $container      : $container,
+            $content        : $container.find('.nav-content'),
+            $ul             : $container.find('.nav-tabs'),
+            $nextTabButton  :  $(this)
+        });
+    });
 
 })(jQuery);
