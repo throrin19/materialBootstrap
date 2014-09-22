@@ -171,15 +171,16 @@
         params.$ul.find('> li').each(function () {
             var $li     = $(this);
 
-            if ($li.position().left + left <= 0 && $li.position().left > testLeft) {
+            if ($li.position().left + left < 0 && $li.position().left > testLeft) {
                 $finalLi = $li;
                 testLeft = $li.position().left;
             }
         });
 
+        console.log($finalLi);
         if ($finalLi) {
             params.$ul.animate({
-                left : $finalLi.position().left + left
+                left : -$finalLi.position().left
             }, 200);
         }
     }
