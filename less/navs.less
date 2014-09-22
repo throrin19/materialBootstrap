@@ -53,66 +53,102 @@
   }
 
   > .nav-content {
+    overflow-x: hidden;
     > .nav {
       width: 5000px;
     }
   }
-}
 
-// Tabs
-// -------------------------
-
-// Give the tabs something to sit on
-.material-nav .nav-tabs {
-  height: 48px;
-  background-color: @tab-bckg-color;
-  position: relative;
-
-  div.selected{
-    position: absolute;
-    min-width: 95px;
-    background-color: @tab-selector;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-  }
-
-  > li {
-    float: left;
-    height: 100%;
-
-    // Actual tabs (as links)
-    > a {
-      cursor: pointer;
-      font-family: "robotomedium";
-      text-transform: uppercase;
-      height: 100%;
-      padding: 0 5px;
-      line-height: 48px;
+  &[role=scroll], &[role=more] {
+    position: relative;
+    height: 48px;
+    .nav-scroll-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 72px;
+      background-color: @tab-bckg-color;
       color : @tab-txt-color;
-      min-width: 95px;
-      text-align: center;
-      transition : background-color 0.3s;
-      opacity: 0.6;
-      &:active, &:link, &:visited {
-        background-color: transparent;
-      }
-      &:hover {
-        background-color: @tab-bckg-hover;
-        opacity : 1;
-      }
+      text-align: right;
     }
-
-    // Active state, and its :hover to override normal :hover
-    &.active > a {
-      opacity: 1;
-      color : @tab-txt-selected;
+    .nav-scroll-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 72px;
+      background-color: @tab-bckg-color;
+      color : @tab-txt-color;
+    }
+    .nav-scroll-left > a, .nav-scroll-right > a {
+      text-decoration: none;
+      font-size: 45px;
+      cursor: pointer;
+      line-height: 51px;
+      display : none
+    }
+    .nav-content {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 0;
+      bottom: 0;
+      text-align: left;
     }
   }
-  // pulling this in mainly for less shorthand
-  &.nav-justified {
-    .nav-justified();
-    .nav-tabs-justified();
+
+  .nav-tabs {
+    height: 48px;
+    background-color: @tab-bckg-color;
+    position: relative;
+
+    div.selected {
+      position: absolute;
+      min-width: 95px;
+      background-color: @tab-selector;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+    }
+
+    > li {
+      float: left;
+      height: 100%;
+
+      // Actual tabs (as links)
+      > a {
+        cursor: pointer;
+        font-family: "robotomedium";
+        text-transform: uppercase;
+        height: 100%;
+        padding: 0 5px;
+        line-height: 48px;
+        color: @tab-txt-color;
+        min-width: 95px;
+        text-align: center;
+        transition: background-color 0.3s;
+        opacity: 0.6;
+        &:active, &:link, &:visited {
+          background-color: transparent;
+        }
+        &:hover {
+          background-color: @tab-bckg-hover;
+          opacity: 1;
+        }
+      }
+
+      // Active state, and its :hover to override normal :hover
+      &.active > a {
+        opacity: 1;
+        color: @tab-txt-selected;
+      }
+    }
+    // pulling this in mainly for less shorthand
+    &.nav-justified {
+      .nav-justified();
+      .nav-tabs-justified();
+    }
   }
 
   .nav-tabs-colors(@index, @colors) when (@index > 0) {
@@ -124,17 +160,22 @@
       }
     }
     &[data-background=@{color}] {
-      background-color: @@color;
-      > li > a {
-        color: contrast(@@color, @grey900, @grey50);
+      .nav-tabs , .nav-scroll-left, .nav-scroll-right {
+        background-color: @@color;
+      }
+      .nav-tabs > li > a {
+
         &:hover {
           @c : "@{color}400";
           background-color: @@c;
         }
       }
+      .nav-scroll-left > a, .nav-scroll-right > a {
+        color: contrast(@@color, @grey900, @grey50);
+      }
     }
     &[data-color=@{color}] {
-      > li.active > a {
+      .nav-tabs > li.active > a {
         color : @@color;
       }
     }
