@@ -52,6 +52,14 @@
 
             $this.trigger('focus');
 
+            // position of $ul with $parent position
+            if ($ul.hasClass('dropdown-tab')) {
+                $ul.css({
+                    top : $parent.position().top,
+                    left : $parent.position().left
+                });
+            }
+
             animations.openSelectMenu({
                 $ul : $ul,
                 $button : $this
@@ -150,7 +158,7 @@
                 params.$ul.animate({
                     height: height + 'px'
                 }, 400, function () {
-                    params.$ul.removeAttr('style');
+                    //params.$ul.removeAttr('style');
                     params.$ul.css('min-width', minWidth + 'px');
                     callback();
                 });

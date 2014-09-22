@@ -137,7 +137,7 @@
         $(document).find('.material-nav.nav-tabs, .material-nav .nav-tabs').each(function () {
             setSelectedBarPosition($(this).find('li.active'), $(this));
         });
-    }, 300);
+    }, 500);
 
     // TAB DATA-API
     // ============

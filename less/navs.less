@@ -1,5 +1,6 @@
 .material-nav {
-
+  position: relative;
+  overflow: visible;
   .nav {
     margin-bottom: 0;
     padding-left: 0; // Override default ul/ol
@@ -101,7 +102,6 @@
   .nav-tabs {
     height: 48px;
     background-color: @tab-bckg-color;
-    position: relative;
 
     div.selected {
       position: absolute;
@@ -142,6 +142,10 @@
       &.active > a {
         opacity: 1;
         color: @tab-txt-selected;
+      }
+
+      &.material-dropdown {
+        position: inherit;
       }
     }
     // pulling this in mainly for less shorthand

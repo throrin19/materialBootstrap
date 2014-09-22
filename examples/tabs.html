@@ -18,22 +18,10 @@
                     <li><a role="tab" data-toggle="tab">Profile</a></li>
                     <li class="material-dropdown dropdown active">
                         <a class="dropdown-toggle" data-toggle="dropdown">Messages <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a role="tab" data-toggle="tab">Sub Item 1</a>
-                            </li>
-                            <li>
-                                <a role="tab" data-toggle="tab">Sub Item 2</a>
-                            </li>
-                            <li>
-                                <a role="tab" data-toggle="tab">Sub Item 3</a>
-                            </li>
-                            <li>
-                                <a role="tab" data-toggle="tab">Sub Item 4</a>
-                            </li>
-                            <li class="active">
-                                <a role="tab" data-toggle="tab">Sub Item 5</a>
-                            </li>
+                        <ul class="dropdown-menu dropdown-tab" role="menu">
+                            <li><a role="tab" data-toggle="tab">Sub Item 1</a></li>
+                            <li><a role="tab" data-toggle="tab">Sub Item 2</a></li>
+                            <li><a role="tab" data-toggle="tab">Sub Item 3</a></li>
                         </ul>
                     </li>
                     <li><a role="tab" data-toggle="tab">very long title of tab</a></li>
@@ -44,12 +32,19 @@
     </div>
     <div style="padding: 10px">
         <h4>Styled Tabs</h4>
-        <div class="material-nav">
+        <div class="material-nav" data-border="yellow" data-background="cyan" data-color="yellow">
             <div class="nav-content">
                 <ul class="nav nav-tabs" role="tablist" data-border="yellow" data-background="cyan" data-color="yellow">
                     <li class="active"><a href="#" role="tab" data-toggle="tab">Home</a></li>
                     <li><a href="#" role="tab" data-toggle="tab">Profile</a></li>
-                    <li><a href="#" role="tab" data-toggle="tab">Messages</a></li>
+                    <li class="material-dropdown dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Messages <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-tab" role="menu">
+                            <li><a role="tab" data-toggle="tab">Sub Item 1</a></li>
+                            <li><a role="tab" data-toggle="tab">Sub Item 2</a></li>
+                            <li><a role="tab" data-toggle="tab">Sub Item 3</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#" role="tab" data-toggle="tab">very long title of tab</a></li>
                     <div class="selected"></div>
                 </ul>
@@ -58,7 +53,7 @@
     </div>
     <div style="padding: 10px">
         <h4>Scroll Tabs</h4>
-        <div class="material-nav" style="width: 800px" role="scroll" data-border="yellow" data-background="cyan" data-color="yellow">
+        <div class="material-nav" style="width: 800px" role="scroll">
             <div class="nav-scroll-left">
                 <a class="icon-chevron-left"></a>
             </div>
@@ -68,6 +63,9 @@
                     <li><a href="#" role="tab" data-toggle="tab">Profile</a></li>
                     <li><a href="#" role="tab" data-toggle="tab">Messages</a></li>
                     <li><a href="#" role="tab" data-toggle="tab">very long title of tab</a></li>
+                    <li><a href="#" role="tab" data-toggle="tab">Tab 5</a></li>
+                    <li><a href="#" role="tab" data-toggle="tab">Tab 6</a></li>
+                    <li><a href="#" role="tab" data-toggle="tab">Tab 7</a></li>
                     <div class="selected"></div>
                 </ul>
             </div>
