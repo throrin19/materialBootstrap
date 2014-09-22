@@ -70,7 +70,6 @@
       bottom: 0;
       width: 72px;
       background-color: @tab-bckg-color;
-      color : @tab-txt-color;
       text-align: right;
     }
     .nav-scroll-right {
@@ -80,14 +79,14 @@
       bottom: 0;
       width: 72px;
       background-color: @tab-bckg-color;
-      color : @tab-txt-color;
     }
     .nav-scroll-left > a, .nav-scroll-right > a {
       text-decoration: none;
       font-size: 45px;
       cursor: pointer;
       line-height: 51px;
-      display : none
+      display : none;
+      color : @tab-txt-color;
     }
     .nav-content {
       position: absolute;
@@ -96,6 +95,9 @@
       top: 0;
       bottom: 0;
       text-align: left;
+    }
+    .nav-tabs {
+      position: absolute;
     }
   }
 

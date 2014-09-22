@@ -118,6 +118,48 @@
         }, 150);
     }
 
+    function checkNextTab(params) {
+        var showNextButton = false;
+        params.$ul.find('> li').each(function () {
+            var $li     = $(this),
+                width   = params.$content.width(),
+                left    = parseInt(params.$ul.css('left')) || 0;
+
+            if ($li.position().left + left > width - $li.width()) {
+                showNextButton = true;
+            }
+        });
+        if (showNextButton === true) {
+            params.$nextTabButton.show();
+        } else {
+            params.$nextTabButton.hide();
+        }
+    }
+
+    function navigateToNextTab(params) {
+        var $finalLi;
+        params.$ul.find('> li').each(function () {
+            var $li     = $(this),
+                width   = params.$content.width(),
+                left    = parseInt(params.$ul.css('left')) || 0;
+
+            if ($li.position().left + left > width - $li.width()) {
+                $finalLi = $li;
+                return false;
+            }
+        });
+
+        if ($finalLi) {
+            params.$ul.animate({
+                left : (parseInt(params.$ul.css('left')) || 0) - $finalLi.width()
+            }, 200);
+        }
+    }
+
+    function initScrollTab(params) {
+        checkNextTab(params);
+    }
+
     var old = $.fn.tab;
 
     $.fn.tab             = Plugin;
@@ -137,6 +179,27 @@
         $(document).find('.material-nav.nav-tabs, .material-nav .nav-tabs').each(function () {
             setSelectedBarPosition($(this).find('li.active'), $(this));
         });
+        $(document).find('.material-nav[role="scroll"]').each(function () {
+            var $container      = $(this),
+                $content        = $(this).find('.nav-content'),
+                $ul             = $(this).find('.nav-tabs'),
+                $nextTabButton  = $(this).find('.nav-scroll-right > a');
+            initScrollTab({
+                $container      : $container,
+                $content        : $content,
+                $ul             : $ul,
+                $nextTabButton  : $nextTabButton
+            });
+
+            $nextTabButton.off('click').one('click', function (evt) {
+                navigateToNextTab({
+                    $container      : $container,
+                    $content        : $content,
+                    $ul             : $ul,
+                    $nextTabButton  : $nextTabButton
+                });
+            });
+        })
     }, 500);
 
     // TAB DATA-API
