@@ -185,9 +185,25 @@
         }
     }
 
+    function navigateToSelectedTab(params) {
+        var $li     = params.$ul.find('> li.active'),
+            width   = params.$content.width(),
+            left    = params.$ul.position().left;
+
+        if ($li.position().left + left + $li.width() > width) {
+            params.$ul.animate({
+                left : width - ($li.position().left + $li.width())
+            }, 200);
+        }
+    }
+
     function initScrollTab(params) {
         checkNextTab(params);
         checkPreviousTab(params);
+        if (params.$container.data('init') !== true) {
+            navigateToSelectedTab(params);
+            params.$container.data('init', true);
+        }
     }
 
     var old = $.fn.tab;
@@ -204,7 +220,7 @@
         return this
     };
 
-    // Refresh selected bar placement (see to optimize this part later)
+    // Refresh tabs Content, placement, size
     setInterval(function () {
         $(document).find('.material-nav.nav-tabs, .material-nav .nav-tabs').each(function () {
             setSelectedBarPosition($(this).find('li.active'), $(this));
