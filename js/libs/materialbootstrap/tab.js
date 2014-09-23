@@ -119,13 +119,14 @@
     }
 
     function checkNextTab(params) {
-        var showNextButton = false;
+        var showNextButton  = false,
+            left            = params.$ul.position().left;
         params.$ul.find('> li').each(function () {
             var $li     = $(this),
-                width   = params.$content.width(),
-                left    = parseInt(params.$ul.css('left')) || 0;
+                width   = params.$content.width();
 
-            if ($li.position().left + left > width - $li.width()) {
+
+            if ($li.position().left + left + $li.width() > width) {
                 showNextButton = true;
             }
         });
@@ -137,13 +138,13 @@
     }
 
     function navigateToNextTab(params) {
-        var $finalLi;
+        var width   = params.$content.width(),
+            left    = params.$ul.position().left,
+            $finalLi;
         params.$ul.find('> li').each(function () {
-            var $li     = $(this),
-                width   = params.$content.width(),
-                left    = parseInt(params.$ul.css('left')) || 0;
+            var $li     = $(this);
 
-            if ($li.position().left + left > width - $li.width()) {
+            if ($li.position().left + left + $li.width() > width) {
                 $finalLi = $li;
                 return false;
             }
@@ -151,7 +152,7 @@
 
         if ($finalLi) {
             params.$ul.animate({
-                left : (parseInt(params.$ul.css('left')) || 0) - $finalLi.width()
+                left : width - ($finalLi.position().left + $finalLi.width())
             }, 200);
         }
     }
@@ -177,7 +178,6 @@
             }
         });
 
-        console.log($finalLi);
         if ($finalLi) {
             params.$ul.animate({
                 left : -$finalLi.position().left
@@ -210,17 +210,12 @@
             setSelectedBarPosition($(this).find('li.active'), $(this));
         });
         $(document).find('.material-nav[role="scroll"]').each(function () {
-            var $container      = $(this),
-                $content        = $(this).find('.nav-content'),
-                $ul             = $(this).find('.nav-tabs'),
-                $nextTabButton  = $(this).find('.nav-scroll-right > a'),
-                $prevTabButton  = $(this).find('.nav-scroll-left > a');
             initScrollTab({
-                $container      : $container,
-                $content        : $content,
-                $ul             : $ul,
-                $nextTabButton  : $nextTabButton,
-                $prevTabButton  : $prevTabButton
+                $container      : $(this),
+                $content        : $(this).find('.nav-content'),
+                $ul             : $(this).find('.nav-tabs'),
+                $nextTabButton  : $(this).find('.nav-scroll-right > a'),
+                $prevTabButton  : $(this).find('.nav-scroll-left > a')
             });
         })
     }, 500);
