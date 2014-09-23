@@ -113,7 +113,7 @@
 
         var $selector = $container.find('div.selected');
         $selector.animate({
-            left : $element.position().left,
+            left : ($element.position() || {}).left,
             width : $element.width()
         }, 150);
     }
@@ -190,10 +190,12 @@
             width   = params.$content.width(),
             left    = params.$ul.position().left;
 
-        if ($li.position().left + left + $li.width() > width) {
-            params.$ul.animate({
-                left : width - ($li.position().left + $li.width())
-            }, 200);
+        if ($li.length > 0) {
+            if ($li.position().left + left + $li.width() > width) {
+                params.$ul.animate({
+                    left: width - ($li.position().left + $li.width())
+                }, 200);
+            }
         }
     }
 

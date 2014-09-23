@@ -14,9 +14,9 @@
         <div class="material-nav">
             <div class="nav-content">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li><a role="tab" data-toggle="tab">Home</a></li>
-                    <li><a role="tab" data-toggle="tab">Profile</a></li>
-                    <li class="material-dropdown dropdown active">
+                    <li class="active"><a role="tab" data-toggle="tab" data-target="#tab1">Home</a></li>
+                    <li><a role="tab" data-toggle="tab" data-target="#tab2">Profile</a></li>
+                    <li class="material-dropdown dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">Messages <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-tab" role="menu">
                             <li><a role="tab" data-toggle="tab">Sub Item 1</a></li>
@@ -27,6 +27,20 @@
                     <li><a role="tab" data-toggle="tab">very long title of tab</a></li>
                     <div class="selected"></div>
                 </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                Tab 1
+            </div>
+            <div class="tab-pane" id="tab2">
+                Tab 2
+            </div>
+            <div class="tab-pane" id="tab3">
+                Tab 3
+            </div>
+            <div class="tab-pane" id="tab4">
+                Tab 4
             </div>
         </div>
     </div>
