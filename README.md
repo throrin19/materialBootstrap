@@ -40,11 +40,14 @@ bower install material-bootstrap
 Comming Soon
 
 # Changelog
-[0.1.2]
-- Set position of scroll Tabs on the selected tab on Init
-[0.1.1]
-- fix Bugs
-[0.1.0]
+
+### [0.1.2]
+-    Set position of scroll Tabs on the selected tab on Init
+
+### [0.1.1]
+-    fix Bugs
+
+### [0.1.0]
 - Create Tabs Design, Add options and effects and modify Bootstrap tab.js file
 - Create DropDown Design and modify Bootstrap dropdown.js file
 - Debug On IE9
