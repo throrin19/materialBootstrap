@@ -168,52 +168,10 @@
         };
         this.events = function events() {
             this.$selector.bind('mousedown', function () {
-                this.pressed = true;
-                this.prevX   = 0;
-                if (this.opts.disabled !== true) {
-                    this.$focus.css('display', 'block');
-                }
-                $(document).one('mouseup', function () {
-                    if (this.pressed === true) {
-                        // launch event and set value and placement with step
-                        this.opts.onChange(this.value);
-                        this.valueToPosition(this.value);
-                    }
-                    this.pressed = false;
-                    this.$focus.css('display', 'none');
-                }.bind(this));
+                this.mouseDown();
             }.bind(this));
-            this.$selector.bind('mousemove', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (this.pressed === true && this.opts.disabled !== true) {
-                    if (this.prevX == 0) {
-                        this.prevX = e.pageX;
-                        this.left  = +this.$selector.css('left').replace('px', '');
-                    }
-                    this.decal = (e.pageX - this.prevX)+this.left;
-
-                    if (this.decal < 5) {
-                        this.decal = this.opts.min;
-                    }
-                    if (this.decal > this.$bar.width()) {
-                        this.decal = this.$bar.width();
-                    }
-
-                    this.$selector.css('left', this.decal);
-                    this.$progress.css('width', this.decal);
-
-                    // calculate value
-                    this.percent = Math.round((this.$progress.width()/this.$bar.width())*100)/100;
-                    this.value   = this.opts.min + this.percent*(this.opts.max-this.valueRange);
-
-                    this.value = common.roundValue(this.value, this.opts);
-                    // update input value with steps
-                    this.$input.val(this.value);
-                    this.$tooltip.html(this.value);
-                    common.tooltip(this.$tooltip, this.$selector);
-                    this.opts.onSlide(this.value);
-                }
+            $(document).bind('mousemove', function (e) {
+                this.mouseMove(e);
             }.bind(this));
             this.$input.on('keyup', function () {
                 this.value = common.roundValue(this.$input.val(), this.opts);
@@ -279,6 +237,54 @@
             this.$selector.css('top', (this.$bar.position().top - 5) + 'px');
 
             this.valueToPosition(this.value);
+        };
+        this.mouseDown = function mouseDown() {
+            this.pressed = true;
+            this.prevX   = 0;
+            if (this.opts.disabled !== true) {
+                this.$focus.css('display', 'block');
+            }
+            $(document).one('mouseup', function () {
+                if (this.pressed === true) {
+                    // launch event and set value and placement with step
+                    this.opts.onChange(this.value);
+                    this.valueToPosition(this.value);
+                }
+                this.pressed = false;
+                this.$focus.css('display', 'none');
+            }.bind(this));
+        };
+        this.mouseMove = function mouseMove(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (this.pressed === true && this.opts.disabled !== true) {
+                if (this.prevX == 0) {
+                    this.prevX = e.pageX;
+                    this.left  = +this.$selector.css('left').replace('px', '');
+                }
+                this.decal = (e.pageX - this.prevX)+this.left;
+
+                if (this.decal < 5) {
+                    this.decal = this.opts.min;
+                }
+                if (this.decal > this.$bar.width()) {
+                    this.decal = this.$bar.width();
+                }
+
+                this.$selector.css('left', this.decal);
+                this.$progress.css('width', this.decal);
+
+                // calculate value
+                this.percent = Math.round((this.$progress.width()/this.$bar.width())*100)/100;
+                this.value   = this.opts.min + this.percent*(this.opts.max-this.valueRange);
+
+                this.value = common.roundValue(this.value, this.opts);
+                // update input value with steps
+                this.$input.val(this.value);
+                this.$tooltip.html(this.value);
+                common.tooltip(this.$tooltip, this.$selector);
+                this.opts.onSlide(this.value);
+            }
         };
     }
 
@@ -346,100 +352,16 @@
         };
         this.events = function events() {
             this.$selector1.on('mousedown', function () {
-                this.pressed1 = true;
-                this.prevX1   = 0;
-                if (this.opts.disabled !== true) {
-                    this.$focus1.css('display', 'block');
-                }
-                $(document).one('mouseup', function () {
-                    this.onMouseUp();
-                }.bind(this));
+                this.mouseDown(1);
             }.bind(this));
             this.$selector2.on('mousedown', function () {
-                this.pressed2 = true;
-                this.prevX2   = 0;
-                if (this.opts.disabled !== true) {
-                    this.$focus2.css('display', 'block');
-                }
-                $(document).one('mouseup', function () {
-                    this.onMouseUp();
-                }.bind(this));
+                this.mouseDown(2);
             }.bind(this));
-
-            this.$selector1.bind('mousemove', function (e) {
+            $(document).bind('mousemove', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                if (this.pressed1 === true && this.opts.disabled !== true) {
-                    if (this.prevX1 == 0) {
-                        this.prevX1 = e.pageX;
-                        this.left1  = +this.$selector1.css('left').replace('px', '');
-                    }
-                    this.decal1 = (e.pageX - this.prevX1)+this.left1;
-
-                    if (this.decal1 < 5) {
-                        this.decal1 = this.opts.min;
-                    }
-                    if (this.decal1 > this.$bar.width()) {
-                        this.decal1 = this.$bar.width();
-                    }
-
-                    // calculate value
-                    this.percent1 = Math.round((this.decal1/this.$bar.width())*100)/100;
-                    this.value1   = this.opts.min + this.percent1*(this.opts.max-this.valueRange);
-
-                    if (this.value1 < this.value2 - this.opts.step) {
-                        this.$selector1.css('left', this.decal1);
-                        this.$progress.css('left', this.decal1);
-
-                        var values = this.roundValues(this.value1, this.value2, this.opts);
-                        this.value1 = values.value1;
-                        this.value2 = values.value2;
-
-                        // update input value with steps
-                        this.$inputLeft.val(this.value1);
-                        this.$tooltip1.html(this.value1);
-                        common.tooltip(this.$tooltip1, this.$selector1);
-                        this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
-                    }
-                }
-            }.bind(this));
-            this.$selector2.bind('mousemove', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (this.pressed2 === true && this.opts.disabled !== true) {
-                    if (this.prevX2 == 0) {
-                        this.prevX2 = e.pageX;
-                        this.left2  = +this.$selector2.css('left').replace('px', '');
-                    }
-                    this.decal2 = (e.pageX - this.prevX2)+this.left2;
-
-                    if (this.decal2 < 5) {
-                        this.decal2 = this.opts.min + this.opts.step;
-                    }
-                    if (this.decal2 > this.$bar.width()) {
-                        this.decal2 = this.$bar.width();
-                    }
-
-                    // calculate value
-                    this.percent2 = Math.round((this.decal2/this.$bar.width())*100)/100;
-                    this.value2   = this.opts.min + this.percent2*(this.opts.max-this.valueRange);
-
-                    if (this.value2 > this.value1 + this.opts.step) {
-                        this.$selector2.css('left', this.decal2);
-                        this.$progress.css('right', this.$bar.width() - this.decal2);
-
-                        var values = this.roundValues(this.value1, this.value2, this.opts);
-                        this.value1 = values.value1;
-                        this.value2 = values.value2;
-
-                        // update input value with steps
-                        this.$inputRight.val(this.value2);
-                        this.$tooltip2.html(this.value2);
-                        common.tooltip(this.$tooltip2, this.$selector2);
-                        this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
-                    }
-                }
+                this.mouseMoveLeft(e);
+                this.mouseMoveRight(e);
             }.bind(this));
             this.$inputLeft.on('keyup', function () {
                 var values = this.roundValues(+this.$inputLeft.val(),this.value2, this.opts);
@@ -578,6 +500,86 @@
 
             this.valuesToPosition(this.opts);
         };
+        this.mouseDown = function mouseDown(i) {
+            this['pressed'+i] = true;
+            this['prevX'+i]   = 0;
+            if (this.opts.disabled !== true) {
+                this['$focus' +i].css('display', 'block');
+            }
+            $(document).one('mouseup', function () {
+                this.onMouseUp();
+            }.bind(this));
+        };
+        this.mouseMoveLeft = function mouseMoveLeft(e) {
+            if (this.pressed1 === true && this.opts.disabled !== true) {
+                if (this.prevX1 == 0) {
+                    this.prevX1 = e.pageX;
+                    this.left1  = +this.$selector1.css('left').replace('px', '');
+                }
+                this.decal1 = (e.pageX - this.prevX1)+this.left1;
+
+                if (this.decal1 < 5) {
+                    this.decal1 = this.opts.min;
+                }
+                if (this.decal1 > this.$bar.width()) {
+                    this.decal1 = this.$bar.width();
+                }
+
+                // calculate value
+                this.percent1 = Math.round((this.decal1/this.$bar.width())*100)/100;
+                this.value1   = this.opts.min + this.percent1*(this.opts.max-this.valueRange);
+
+                if (this.value1 < this.value2 - this.opts.step) {
+                    this.$selector1.css('left', this.decal1);
+                    this.$progress.css('left', this.decal1);
+
+                    var values = this.roundValues(this.value1, this.value2, this.opts);
+                    this.value1 = values.value1;
+                    this.value2 = values.value2;
+
+                    // update input value with steps
+                    this.$inputLeft.val(this.value1);
+                    this.$tooltip1.html(this.value1);
+                    common.tooltip(this.$tooltip1, this.$selector1);
+                    this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
+                }
+            }
+        };
+        this.mouseMoveRight = function mouseMoveRight(e) {
+            if (this.pressed2 === true && this.opts.disabled !== true) {
+                if (this.prevX2 == 0) {
+                    this.prevX2 = e.pageX;
+                    this.left2  = +this.$selector2.css('left').replace('px', '');
+                }
+                this.decal2 = (e.pageX - this.prevX2)+this.left2;
+
+                if (this.decal2 < 5) {
+                    this.decal2 = this.opts.min + this.opts.step;
+                }
+                if (this.decal2 > this.$bar.width()) {
+                    this.decal2 = this.$bar.width();
+                }
+
+                // calculate value
+                this.percent2 = Math.round((this.decal2/this.$bar.width())*100)/100;
+                this.value2   = this.opts.min + this.percent2*(this.opts.max-this.valueRange);
+
+                if (this.value2 > this.value1 + this.opts.step) {
+                    this.$selector2.css('left', this.decal2);
+                    this.$progress.css('right', this.$bar.width() - this.decal2);
+
+                    var values = this.roundValues(this.value1, this.value2, this.opts);
+                    this.value1 = values.value1;
+                    this.value2 = values.value2;
+
+                    // update input value with steps
+                    this.$inputRight.val(this.value2);
+                    this.$tooltip2.html(this.value2);
+                    common.tooltip(this.$tooltip2, this.$selector2);
+                    this.opts.onSlide({ value1 : this.value1, value2 : this.value2 });
+                }
+            }
+        }
     }
 
     var oldMaterialSlider = $.materialSlider;
