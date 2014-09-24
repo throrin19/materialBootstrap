@@ -41,8 +41,10 @@
                 }
             }
 
-            $input.on('focus', Floating);
-            $input.on('blur', UnFloating);
+            $input.off('focus.text.field');
+            $input.off('blur.text.field');
+            $input.on('focus.text.field', Floating);
+            $input.on('blur.text.field', UnFloating);
         });
     }
 
@@ -56,7 +58,6 @@
                 var classList   = $input.attr('class').split(/\s+/),
                     color       = materialColors['blue'];
 
-                console.log($input.hasClass('error'));
                 if ($input.hasClass('error')) {
                     $addon.css('color', materialColors.red);
                 } else {
@@ -71,8 +72,10 @@
             function Unfocus() {
                 $addon.css('color', '');
             }
-            $input.on('focus', Focus);
-            $input.on('blur', Unfocus);
+            $input.off('focus.text.field.group');
+            $input.off('blur.text.field.group');
+            $input.on('focus.text.field.group', Focus);
+            $input.on('blur.text.field.group', Unfocus);
         });
     }
 
