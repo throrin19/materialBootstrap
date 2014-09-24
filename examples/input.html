@@ -7,21 +7,60 @@
     <script type="text/javascript" src="../js/libs/materialbootstrap/input.js"></script>
 </head>
 <body style="margin: 50px;">
-<div class="floating-label">
-    <input id="floating-label" class="text-field orange" type="text" required/>
-    <label for="floating-label">test</label>
+<div class="row">
+    <div class="col-md-2">
+        <div class="floating-label">
+            <input id="floating-label" class="text-field orange" type="text" required/>
+            <label for="floating-label">test</label>
+        </div>
+    </div>
 </div>
-<div class="text-field-group">
-    <span class="text-field-group-addon"><i class="icon-phone"></i></span>
-    <div class="floating-label">
-        <input id="grp1" type="text" class="text-field" required>
-        <label for="grp1">Username</label>
+<div class="row">
+    <div class="col-md-2">
+        <div class="text-field-group">
+            <span class="text-field-group-addon"><i class="icon-phone"></i></span>
+            <div class="floating-label">
+                <input id="grp1" type="text" class="text-field" required>
+                <label for="grp1">Username</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="floating-label">
+            <input id="floating-label-err" class="text-field orange error" type="text" required/>
+            <label for="floating-label-err">test</label>
+            <div class="error-field">
+                <i class="icon-warning"></i>
+                Error occured
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="text-field-group">
+            <span class="text-field-group-addon"><i class="icon-phone"></i></span>
+            <div class="floating-label">
+                <input id="grp2" type="text" class="text-field error" required>
+                <label for="grp2">Username</label>
+                <div class="error-field">
+                    <i class="icon-warning"></i>
+                    UserName is Required
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div style="background-color: #424242; padding: 30px 50px; margin: 0 -50px;">
-    <div class="floating-label">
-        <input id="floating-label-2" class="text-field dark" type="text" required/>
-        <label for="floating-label-2">test</label>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="floating-label">
+                <input id="floating-label-2" class="text-field dark" type="text" required/>
+                <label for="floating-label-2">test</label>
+            </div>
+        </div>
     </div>
 </div>
 </body>

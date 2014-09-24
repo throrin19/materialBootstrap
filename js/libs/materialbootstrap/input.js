@@ -4,9 +4,28 @@
 (function ($){
     'use strict';
 
-    var colorNames  = [ 'red', 'pink', 'purple', 'dpurple', 'indigo', 'blue', 'lblue', 'cyan', 'teal', 'green', 'lgreen', 'lime', 'yellow', 'amber', 'orange', 'dorange', 'brown', 'grey', 'bgrey'],
-        colorValues = [ '#e51c23', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#5677fc', '#03a9f4', '#00bcd4', '#009688', '#259b24', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548', '#9e9e9e', '#607d8b' ];
-    
+    var materialColors = {
+        red : '#e51c23',
+        pink : '#e91e63',
+        purple : '#9c27b0',
+        dpurple : '#673ab7',
+        indigo : '#3f51b5',
+        blue : '#5677fc',
+        lblue : '#03a9f4',
+        cyan : '#00bcd4',
+        teal : '#009688',
+        green : '#259b24',
+        lgreen : '#8bc34a',
+        lime : '#cddc39',
+        yellow : '#ffeb3b',
+        amber : '#ffc107',
+        orange : '#ff9800',
+        dorange : '#ff5722',
+        brown : '#795548',
+        grey : '#9e9e9e',
+        bgrey : '#607d8b'
+    };
+
     function FloatingLabel(options) {
         return this.each(function () {
             var $this   = $(this),
@@ -34,18 +53,19 @@
                 $input = $this.find('input');
 
             function Focus() {
-                var classList = $input.attr('class').split(/\s+/),
-                    hasColor  = false;
-                $.each( classList, function(i, item){
-                    $.each(colorNames, function (index, color) {
-                        if (item === color) {
-                            $addon.css('color', colorValues[index]);
-                            hasColor = true;
+                var classList   = $input.attr('class').split(/\s+/),
+                    color       = materialColors['blue'];
+
+                console.log($input.hasClass('error'));
+                if ($input.hasClass('error')) {
+                    $addon.css('color', materialColors.red);
+                } else {
+                    $.each( classList, function(i, item){
+                        if (materialColors[item]) {
+                            color = materialColors[item];
                         }
                     });
-                });
-                if (!hasColor) {
-                    $addon.css('color', colorValues[5]);
+                    $addon.css('color', color);
                 }
             }
             function Unfocus() {

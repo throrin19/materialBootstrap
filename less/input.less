@@ -1,6 +1,6 @@
 input.text-field {
   font-family: "robotoregular";
-  font-size: 16px;
+  font-size: 14px;
   background-color: transparent;
   border-top: 0px;
   border-left: 0px;
@@ -27,13 +27,6 @@ input.text-field {
     // @todo animation
   }
 
-  &.error {
-    border-bottom: 2px solid @red;
-    &:focus {
-      border-color: @red;
-    }
-  }
-
   &.dark {
     color : @grey200;
     border-color: @grey600;
@@ -44,6 +37,20 @@ input.text-field {
   }
 
   .colors-focus(length(@colors), @colors, border-color);
+
+  &.error {
+    border-bottom: 2px solid @red;
+    &:focus {
+      border-color: @red;
+    }
+  }
+}
+
+div.error-field {
+  font-size: 12px;
+  margin-top: -5px;
+  margin-bottom: 2px;
+  color: @red500;
 }
 
 div.floating-label {
@@ -52,19 +59,18 @@ div.floating-label {
   > label {
     font-family: "robotoregular";
     position: absolute;
-    top: 18px;
+    top: 24px;
     left: 0;
-    width: 100%;
     transition: 0.15s;
     color: @grey500;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     cursor: text;
   }
 
   > input.text-field:focus + label, > input.text-field + label.show-float {
     top: 0;
-    font-size: 12px;
+    font-size: 11px;
     cursor: inherit;
   }
 
@@ -83,4 +89,8 @@ div.floating-label {
     }
   }
   .text-field-colors(length(@colors), @colors, border-color);
+
+  > input.text-field.error:focus + label {
+    color : @red500;
+  }
 }
