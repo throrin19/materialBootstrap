@@ -637,6 +637,25 @@
         this.resizeSlider();
         // init value
         this.valueToPosition(this.opts.value);
+
+        for (var i = this.opts.min; i<= this.opts.max; i = i + this.opts.step) {
+            var $step = $('<div class="step" data-value="'+ i +'"><div class="tooltip">'+ i +'</div></div>');
+            this.$bar.after($step);
+
+            var min   = this.opts.min > 0 ? this.opts.min : this.opts.max,
+                decal = ((i-this.opts.min)/this.opts.max)*(this.opts.max/min),
+                left  = (this.$bar.width()*decal) + 5;
+
+
+            if (left >= this.$bar.width()) {
+                left = left - 5;
+            }
+
+            $step.css({
+                'left' : left,
+                top : this.$bar.position().top -1
+            });
+        }
     };
     Selector.prototype.events = function events() {
         this.$selector.bind('mousedown', function () {
@@ -653,6 +672,11 @@
             this.value = common.roundValue(this.$input.val(), this.opts);
             this.valueToPosition(this.value);
             this.$input.val(this.value);
+        }.bind(this));
+        this.$slider.find('.step').on('click', function (e) {
+            var $step = $(e.currentTarget),
+                value = $step.data('value');
+            this.valueToPosition(value);
         }.bind(this));
         $(window).resize(function () {
             this.resizeSlider();
@@ -676,17 +700,10 @@
 
         this.$selector.css('left', left + 'px');
 
-        if (left > 5) {
-            this.$selector.css({
-                'border-color' : materialColors[this.opts.color],
-                'background-color' : materialColors[this.opts.color]
-            });
-        } else {
-            this.$selector.css({
-                'border-color' : '',
-                'background-color' : ''
-            });
-        }
+        this.$selector.css({
+            'border-color' : materialColors[this.opts.color],
+            'background-color' : materialColors[this.opts.color]
+        });
         this.$tooltip.html(value);
         common.tooltip(this.$tooltip, this.$selector);
         this.value = value;
