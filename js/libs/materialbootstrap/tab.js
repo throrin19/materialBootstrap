@@ -111,11 +111,16 @@
             $element = $element.closest('li.dropdown');
         }
 
-        var $selector = $container.find('div.selected');
-        $selector.animate({
-            left : ($element.position() || {}).left,
-            width : $element.width()
-        }, 150);
+        var $selector   = $container.find('div.selected'),
+            elementLeft = ($element.position() || {}).left,
+            selectorLeft = $selector.position().left;
+
+        if (elementLeft !== selectorLeft) {
+            $selector.animate({
+                left : ($element.position() || {}).left,
+                width : $element.width()
+            }, 150);
+        }
     }
 
     function checkNextTab(params) {
