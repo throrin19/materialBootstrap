@@ -63,3 +63,10 @@
   -o-border-radius: @topleft @topright @bottomright @bottomleft;
   border-radius: @topleft @topright @bottomright @bottomleft;
 }
+
+.box-shadow(@param) {
+  -moz-box-shadow:    @param;
+  -webkit-box-shadow: @param;
+  -o-box-shadow:      @param;
+  box-shadow:         @param;
+}
