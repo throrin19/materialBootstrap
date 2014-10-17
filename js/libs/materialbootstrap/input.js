@@ -41,6 +41,10 @@
                 }
             }
 
+            if ($input.val().length > 0) {
+                Floating();
+            }
+
             $input.off('focus.text.field');
             $input.off('blur.text.field');
             $input.on('focus.text.field', Floating);
