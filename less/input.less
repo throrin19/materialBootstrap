@@ -23,6 +23,7 @@ input.text-field {
     border-left: 0px;
     border-right: 0px;
     border-bottom: 2px solid @blue;
+    margin-bottom: 7px;
   }
 
   &.dark {
@@ -80,9 +81,6 @@ div.floating-label {
     .text-field-colors(@index - 1, @colors, @type);
     @color : e(extract(@colors, @index));
     > input.text-field.@{color}:focus + label {
-      color: @@color;
-    }
-    > input.text-field.@{color} + label.show-float {
       color: @@color;
     }
   }

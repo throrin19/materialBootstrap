@@ -80,11 +80,7 @@
     // all common functions, elements
     var common = {
         roundValue : function roundValue(value, opts) {
-            if (value > 0) {
-                value = Math.floor(value);
-            } else if (value < 0) {
-                value = Math.ceil(value);
-            }
+            value = Math.round(value);
 
             if (value < opts.min) {
                 value = opts.min;
@@ -653,7 +649,7 @@
 
             $step.css({
                 'left' : left,
-                top : this.$bar.position().top -1
+                top : this.$bar.position().top -2
             });
         }
     };
@@ -677,6 +673,8 @@
             var $step = $(e.currentTarget),
                 value = $step.data('value');
             this.valueToPosition(value);
+            this.value = common.roundValue(value, this.opts);
+            this.$input.val(this.value);
         }.bind(this));
         $(window).resize(function () {
             this.resizeSlider();
