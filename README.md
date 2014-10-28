@@ -41,6 +41,50 @@ Comming Soon
 
 # Changelog
 
+### [0.2.3]
+-    Fix slider tooltip placements
+
+### [0.2.2]
+-    fix problems on input design and javascript script
+-    fix problems in checkbox and radio design
+-    fix radio design
+-    fix selector slider
+
+### [0.2.1]
+-    fix checkbox bug on iconfont content
+-    fix input design
+
+### [0.2.0]
+-    fix design
+-    add path for icons and fonts in less variables
+
+### [0.1.10]
+-    fix tab overflow bug on ie
+
+### [0.1.9]
+-    fix tab overflow bug on ie
+
+### [0.1.8]
+-    fix button design
+-    add tooltip design
+
+### [0.1.7]
+-    increase shadow dominance to better render
+-    update dialog example
+-    optimize tab performances
+-    add z-depth-left, z-depth-right, z-depth-top
+
+### [0.1.6]
+-    fix input js bug for performances
+
+### [0.1.5]
+-    fix input design and set input error-field design
+
+### [0.1.4]
+-    fix tabs bugs
+-    optimize slider code
+-    add selector element
+
 ### [0.1.2]
 -    Set position of scroll Tabs on the selected tab on Init
 

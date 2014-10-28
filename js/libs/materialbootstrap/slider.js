@@ -341,10 +341,9 @@
             this.$element.append(this.$inputRight);
         }
 
+        this.resizeSlider();
         common.tooltip(this.$tooltip1, this.$selector1);
         common.tooltip(this.$tooltip2, this.$selector2);
-
-        this.resizeSlider();
         // init value
         this.valuesToPosition(this.opts);
     };

@@ -113,7 +113,7 @@
 
         var $selector   = $container.find('div.selected'),
             elementLeft = ($element.position() || {}).left,
-            selectorLeft = $selector.position().left;
+            selectorLeft = ($selector.position() || {}).left;
 
         if (elementLeft !== selectorLeft) {
             $selector.animate({
