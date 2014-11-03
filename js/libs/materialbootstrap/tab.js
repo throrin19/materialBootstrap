@@ -120,6 +120,8 @@
                 left : ($element.position() || {}).left,
                 width : $element.width()
             }, 150);
+        } else if ($selector.width() !== $element.width()) {
+            $selector.css('width', $element.width());
         }
     }
 
