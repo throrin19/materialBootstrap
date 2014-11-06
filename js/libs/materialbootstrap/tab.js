@@ -42,6 +42,11 @@
 
         var $target = $(selector);
 
+        var selectMenu = $this.closest('ul.dropdown-menu[role="select"]');
+        if (selectMenu.length === 1) {
+            $this.trigger('click.bs.dropdown.item');
+        }
+
         this.activate($this.closest('li'), $ul);
         this.activate($target, $target.parent(), function () {
             $this.trigger({
