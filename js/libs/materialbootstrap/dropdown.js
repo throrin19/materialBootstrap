@@ -34,7 +34,7 @@
         if (!isActive) {
             if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
                 // if mobile we use a backdrop because click events don't delegate
-                $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
+                $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus);
             }
             $ul.find('li a').on('click', function(evt) {
                 $parent.trigger('select.bs.dropdown', evt);
@@ -210,6 +210,20 @@
         $this.find('.name').html($a.html());
     }
 
+    function clickItem(evt) {
+        var $a          = $(evt.target),
+            $parent     = $a.closest('.dropdown'),
+            $this       = $parent.find('.dropdown-toggle'),
+            $ul         = $parent.find('.dropdown-menu');
+
+        selectItem($.Event('click', {
+            currentTarget : $a
+        }), {
+            $parent : $parent,
+            $this   : $this,
+            $ul     : $ul
+        });
+    }
 
     // DROPDOWN PLUGIN DEFINITION
     // ==========================
@@ -235,7 +249,7 @@
 
     $.fn.dropdown.noConflict = function () {
         $.fn.dropdown = old;
-        return this
+        return this;
     };
 
 
@@ -247,6 +261,7 @@
         .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
         .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
         .on('keydown.bs.dropdown.data-api', toggle + ', [role="menu"], [role="listbox"], [role="select"]', Dropdown.prototype.keydown)
+        .on('click.bs.dropdown.item', clickItem);
 
 
 })(jQuery);

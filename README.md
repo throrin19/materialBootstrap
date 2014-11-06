@@ -41,9 +41,11 @@ Comming Soon
 
 # Changelog
 
+### [0.3.0]
+-    Add Event on dropdown to select specific item programmatically (only for role=select)
+-    Add trigger to use select dropdown whti $elem.tab('show')
 ### [0.2.3]
 -    Fix slider tooltip placements
-
 ### [0.2.2]
 -    fix problems on input design and javascript script
 -    fix problems in checkbox and radio design
