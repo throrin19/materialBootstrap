@@ -28,6 +28,7 @@ At this moment, Material Bootstrap is on Alpha and it implements this Material's
 - Icons
 - Roboto Polices
 - Z-Deph (shadow level)
+- Cards
 
 # Installation
 
@@ -41,6 +42,8 @@ Comming Soon
 
 # Changelog
 
+### [0.4.0]
+-    Add Card component
 ### [0.3.0]
 -    Add Event on dropdown to select specific item programmatically (only for role=select)
 -    Add trigger to use select dropdown whti $elem.tab('show')
