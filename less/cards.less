@@ -1,0 +1,63 @@
+.material-card {
+  .z-depth-1;
+
+  position: relative;
+  float: left;
+  margin: 8px;
+  width: 250px;
+  height: 200px;
+  background-color: @grey2000;
+  background-position: center center;
+  background-size: cover;
+  .rounded-corners(2px);
+
+  .card-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .title {
+      height: 30px;
+      position: relative;
+      .value {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 5px;
+        color: @grey2000;
+        font-family: 'robotomedium';
+        font-size: 15px;
+      }
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        background-color: @grey1000;
+      }
+    }
+    .description {
+      background-color: @grey2000;
+      padding: 5px;
+      font-family: 'robotomedium';
+      font-size: 12px;
+    }
+    .controls {
+      border-top: 1px solid @grey300;
+      background-color: @grey2000;
+      position: relative;
+
+      &.right {
+        text-align: right;
+      }
+      button:hover {
+        .box-shadow(none);
+      }
+    }
+  }
+}
