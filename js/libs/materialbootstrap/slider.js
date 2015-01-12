@@ -123,7 +123,7 @@
 
         this.$element        = opts.$element;
         this.$input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field '+ color +'" />');
-        this.$icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>');
+        this.$icon           = $('<span class="slider-icon-addon"><i class="'+ opts.icon +'"></i></span>');
         this.$slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>');
         this.$selector       = this.$slider.find('.selector');
         this.$focus          = this.$selector.find('.focus');
@@ -301,7 +301,7 @@
         this.$element        = opts.$element;
         this.$inputLeft      = $('<input type="text" value="'+ opts.value1 + '" name="'+ opts.inputName1 +'" class="text-field left '+ this.color +'" />');
         this.$inputRight     = $('<input type="text" value="'+ opts.value2 + '" name="'+ opts.inputName2 +'" class="text-field right '+ this.color +'" />');
-        this.$icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>');
+        this.$icon           = $('<span class="slider-icon-addon"><i class="'+ opts.icon +'"></i></span>');
         this.$slider         = $('<div class="slider"><div class="slider-bar"><div class="slider-bar-colored"></div></div><div class="selector left"><div class="focus"></div><div class="tooltip">'+ opts.value1 +'</div></<div></div><div class="selector right"><div class="focus"></div><div class="tooltip">'+ opts.value2 +'</div></div></div>');
         this.$selector1      = this.$slider.find('.selector.left');
         this.$selector2      = this.$slider.find('.selector.right');
@@ -594,7 +594,7 @@
         this.color           = opts.color;
         this.$element        = opts.$element;
         this.$input          = $('<input type="text" value="'+ opts.value + '" name="'+ opts.inputName +'" class="text-field left '+ this.color +'" />');
-        this.$icon           = $('<span class="slider-icon-addon"><i class="icon-'+ opts.icon +'"></i></span>');
+        this.$icon           = $('<span class="slider-icon-addon"><i class="'+ opts.icon +'"></i></span>');
         this.$slider         = $('<div class="slider"><div class="slider-bar"></div><div class="selector"><div class="focus"></div><div class="tooltip">'+ opts.value +'</div></div></div>');
         this.$selector       = this.$slider.find('.selector');
         this.$focus          = this.$selector.find('.focus');
