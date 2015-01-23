@@ -42,6 +42,10 @@ Comming Soon
 
 # Changelog
 
+### [0.5.1]
+-   Add onChange Event on sliders's inputs change event
+### [0.5.0]
+-   Change all icons
 ### [0.4.0]
 -    Add Card component
 ### [0.3.0]
