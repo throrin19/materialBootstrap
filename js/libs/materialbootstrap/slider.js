@@ -174,7 +174,7 @@
         }.bind(this));
         this.$input.on('keyup', function () {
             this.value = common.roundValue(this.$input.val(), this.opts);
-            this.valueToPosition(value);
+            this.valueToPosition(this.value);
         }.bind(this));
         this.$input.on('change', function () {
             this.value = common.roundValue(this.$input.val(), this.opts);
@@ -664,7 +664,7 @@
         }.bind(this));
         this.$input.on('keyup', function () {
             this.value = common.roundValue(this.$input.val(), this.opts);
-            this.valueToPosition(value);
+            this.valueToPosition(this.value);
         }.bind(this));
         this.$input.on('change', function () {
             this.value = common.roundValue(this.$input.val(), this.opts);
