@@ -180,6 +180,7 @@
             this.value = common.roundValue(this.$input.val(), this.opts);
             this.valueToPosition(this.value);
             this.$input.val(this.value);
+            this.opts.onChange(this.value);
         }.bind(this));
         $(window).resize(function () {
             this.resizeSlider();
@@ -371,6 +372,7 @@
             this.value2 = values.value2;
             this.$inputLeft.val(values.value1);
             this.$inputRight.val(values.value2);
+            this.opts.onChange({ value1 : values.value1, value2 : values.value2 });
         }.bind(this));
         this.$inputRight.on('keyup', function () {
             var values = this.roundValues(this.value1, +this.$inputRight.val(), this.opts);
@@ -383,6 +385,7 @@
             this.value2 = values.value2;
             this.$inputLeft.val(values.value1);
             this.$inputRight.val(values.value2);
+            this.opts.onChange({ value1 : values.value1, value2 : values.value2 });
         }.bind(this));
         $(window).resize(function () {
             this.resizeSlider();
@@ -667,6 +670,7 @@
             this.value = common.roundValue(this.$input.val(), this.opts);
             this.valueToPosition(this.value);
             this.$input.val(this.value);
+            this.opts.onChange(this.value);
         }.bind(this));
         this.$slider.find('.step').on('click', function (e) {
             var $step = $(e.currentTarget),
