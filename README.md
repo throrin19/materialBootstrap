@@ -29,6 +29,7 @@ At this moment, Material Bootstrap is on Alpha and it implements this Material's
 - Roboto Polices
 - Z-Deph (shadow level)
 - Cards
+- Tooltips
 
 # Installation
 
@@ -42,6 +43,10 @@ Comming Soon
 
 # Changelog
 
+### [0.5.3]
+-   Fix bug with focus Element on Firefox, ... for all switches (Radio, checkbox, ...)
+### [0.5.2]
+-   Fix bug on Slider
 ### [0.5.1]
 -   Add onChange Event on sliders's inputs change event
 ### [0.5.0]
