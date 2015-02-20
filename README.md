@@ -43,6 +43,8 @@ Comming Soon
 
 # Changelog
 
+### [0.5.4]
+-   Add class `btn-icon` to show raised and flat button with only icon inside.
 ### [0.5.3]
 -   Fix bug with focus Element on Firefox, ... for all switches (Radio, checkbox, ...)
 ### [0.5.2]
