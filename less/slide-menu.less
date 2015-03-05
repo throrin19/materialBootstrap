@@ -31,18 +31,38 @@
   nav {
     font-size: 13px;
     font-family: 'robotomedium';
-    padding: 12px 0 10px 0;
+    padding: 0;
     color: @grey900;
-    dl > dt{
-      font-weight: 700;
-      margin-top: 0;
-      padding: 15px 0 15px 22px;
-      cursor: pointer;
-      &:hover {
-        background-color: @grey100;
+    dl {
+      padding: 10px 0;
+      margin: 0;
+      > dt {
+        .ellipsis;
+        font-weight: 700;
+        margin-top: 0;
+        padding: 0 16px 0 16px;
+        line-height: 48px;
+        cursor: pointer;
+
+        span[class^="mic-"], span[class*=" mic-"] {
+          font-size: 25px;
+          float: left;
+          margin-right: 16px;
+          width: 30px;
+          line-height: 47px;
+          color: @grey700;
+        }
+
+        &:hover {
+          background-color: @grey100;
+        }
+        &:active {
+          background-color: @grey200;
+        }
       }
-      &:active {
-        background-color: @grey200;
+
+      + dl {
+        border-top: 1px solid @grey300;
       }
     }
   }
