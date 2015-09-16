@@ -240,13 +240,15 @@
             setSelectedBarPosition($(this).find('li.active'), $(this));
         });
         $(document).find('.material-nav[role="scroll"]').each(function () {
-            initScrollTab({
-                $container      : $(this),
-                $content        : $(this).find('.nav-content'),
-                $ul             : $(this).find('.nav-tabs'),
-                $nextTabButton  : $(this).find('.nav-scroll-right > a'),
-                $prevTabButton  : $(this).find('.nav-scroll-left > a')
-            });
+            if ($(this).data('refresh') != 'false' && $(this).data('refresh') !== false) {
+                initScrollTab({
+                    $container      : $(this),
+                    $content        : $(this).find('.nav-content'),
+                    $ul             : $(this).find('.nav-tabs'),
+                    $nextTabButton  : $(this).find('.nav-scroll-right > a'),
+                    $prevTabButton  : $(this).find('.nav-scroll-left > a')
+                });
+            }
         })
     }, 500);
 
