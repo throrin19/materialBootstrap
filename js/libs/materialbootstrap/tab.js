@@ -237,7 +237,9 @@
     // Refresh tabs Content, placement, size
     setInterval(function () {
         $(document).find('.material-nav.nav-tabs, .material-nav .nav-tabs').each(function () {
-            setSelectedBarPosition($(this).find('li.active'), $(this));
+            if ($(this).parents('.material-nav').data('refresh') != 'false' && $(this).parents('.material-nav').data('refresh') !== false) {
+                setSelectedBarPosition($(this).find('li.active'), $(this));
+            }
         });
         $(document).find('.material-nav[role="scroll"]').each(function () {
             if ($(this).data('refresh') != 'false' && $(this).data('refresh') !== false) {
