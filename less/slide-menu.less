@@ -1,0 +1,74 @@
+.slide-menu-expand {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: @sliderWidth;
+}
+
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: @sliderWidth;
+  background-color: @white;
+  border-right: 1px solid @grey300;
+  display: block;
+  z-index: 4;
+
+  .logo {
+    border-bottom: 1px solid @grey300;
+    display: block;
+    height: 70px;
+    vertical-align: middle;
+    margin: auto;
+    padding: 12px 24px 10px 24px;
+    position: relative;
+    font-size: 35px;
+    font-family: 'robotothin';
+  }
+
+  nav {
+    font-size: 13px;
+    font-family: 'robotomedium';
+    padding: 0;
+    color: @grey900;
+    dl {
+      padding: 10px 0;
+      margin: 0;
+      > dt {
+        .ellipsis;
+        font-weight: 700;
+        margin-top: 0;
+        padding: 0 16px 0 16px;
+        line-height: 48px;
+        cursor: pointer;
+
+        span[class^="mic-"], span[class*=" mic-"] {
+          font-size: 25px;
+          float: left;
+          margin-right: 16px;
+          width: 30px;
+          line-height: 47px;
+          color: @grey700;
+        }
+
+        &:hover {
+          background-color: @grey100;
+        }
+        &:active {
+          background-color: @grey200;
+        }
+      }
+
+      + dl {
+        border-top: 1px solid @grey300;
+      }
+    }
+  }
+}
+
+.slider-left {
+  position: relative;
+  padding-left: @sliderWidth;
+}
